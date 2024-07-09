@@ -58,6 +58,7 @@ function Item({ item }) {
 
   const imagePath = `/images/${item.name
     .toLowerCase()
+    .trim()
     .replaceAll(" ", "-")}.png`;
 
   return (

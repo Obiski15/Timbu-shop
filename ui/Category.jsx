@@ -72,7 +72,10 @@ function Category({ category }) {
 
   const imagePath = `/images/${category.name
     .toLowerCase()
-    .replaceAll(" ", "-")}.png`;
+    .trim()
+    .replaceAll(" ", "-")
+    .replaceAll("&", "and")}.png`;
+
   const categoryName = category.name.toLowerCase().replace(" ", "-");
 
   return (
