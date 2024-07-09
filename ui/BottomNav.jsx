@@ -23,7 +23,7 @@ const StyledNav = styled.div`
   position: fixed;
   z-index: 999;
   bottom: 0;
-  background: #f8f6f4;
+  background: #f8f8f8;
   box-shadow: 0px 2px 2px 0px #bec0bf33 inset;
 
   @media only screen and (min-width: 1201px) {
@@ -72,7 +72,6 @@ function BottomNav({ setNavHeight }) {
 
   useEffect(() => {
     setNavHeight(ref.current.clientHeight);
-    console.log(ref);
   }, [setNavHeight]);
 
   return (

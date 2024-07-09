@@ -18,7 +18,6 @@ const Layout = styled.div`
 `;
 
 function CartLayout({ children, navHeight }) {
-  console.log(navHeight);
   return <Layout navHeight={navHeight}>{children}</Layout>;
 }
 
