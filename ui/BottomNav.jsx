@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import activeCart from "../src/assets/icons/active-cart.svg";
 import home from "../src/assets/icons/active-home.svg";
-import profile from "../src/assets/images/profile.png";
+import profile from "/images/profile.png";
 import explore from "../src/assets/icons/dialpad.svg";
 import activeHome from "../src/assets/icons/home.svg";
 import wishlist from "../src/assets/icons/heart.svg";

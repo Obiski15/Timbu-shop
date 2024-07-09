@@ -70,7 +70,7 @@ const Icon = styled.img`
 function Category({ category }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const imagePath = `../src/assets/images/${category.name
+  const imagePath = `/images/${category.name
     .toLowerCase()
     .replaceAll(" ", "-")}.png`;
   const categoryName = category.name.toLowerCase().replace(" ", "-");

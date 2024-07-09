@@ -3,7 +3,7 @@ import styled from "styled-components";
 import notification from "../src/assets/icons/notification.svg";
 import cart from "../src/assets/icons/cart.svg";
 import dropDown from "../src/assets/icons/drop-down.svg";
-import profile from "../src/assets/images/profile.png";
+import profile from "/images/profile.png";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "./Dropdown";
 

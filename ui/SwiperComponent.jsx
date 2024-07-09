@@ -32,7 +32,7 @@ function SwiperComponent() {
       {Array.from({ length: 5 }, (_, i) => (
         <SwiperSlide key={i + 1}>
           <img
-            src={`../src/assets/images/large-img-${i + 1}.png`}
+            src={`/images/large-img-${i + 1}.png`}
             alt={`large-img-${i + 1}`}
           />
         </SwiperSlide>

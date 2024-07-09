@@ -119,7 +119,7 @@ const NumItems = styled.p`
 `;
 
 function CartItem({ item }) {
-  const imagePath = `../src/assets/images/${item.name
+  const imagePath = `/images/${item.name
     .toLowerCase()
     .replaceAll(" ", "-")}.png`;
 
