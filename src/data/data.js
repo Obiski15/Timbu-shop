@@ -43,51 +43,31 @@ export const items = [
     price: 121.52,
   },
   {
-    name: "gucci flora perfume",
+    name: "Le Monde Sur Mesure",
+    price: 121.52,
+  },
+  {
+    name: "Les Larmes Sacrées de Thebes",
+    price: 121.52,
+  },
+  {
+    name: "Marilyn Monroe’s Chanel",
+    price: 121.52,
+  },
+  {
+    name: "Roja Haute Luxe ",
+    price: 121.52,
+  },
+  {
+    name: "Flowerbomb Haute Couture",
+    price: 121.52,
+  },
+  {
+    name: "Joy Parfum Baccarat",
     price: 121.52,
   },
   {
     name: "N5 eau parfum spray",
-    price: 121.52,
-  },
-  {
-    name: "chanel coco mademoiselle",
-    price: 121.52,
-  },
-  {
-    name: "hugo boss oud aromatic",
-    price: 121.52,
-  },
-  {
-    name: "gucci flora perfume",
-    price: 121.52,
-  },
-  {
-    name: "N5 eau parfum spray",
-    price: 121.52,
-  },
-  {
-    name: "chanel coco mademoiselle",
-    price: 121.52,
-  },
-  {
-    name: "hugo boss oud aromatic",
-    price: 121.52,
-  },
-  {
-    name: "gucci flora perfume",
-    price: 121.52,
-  },
-  {
-    name: "N5 eau parfum spray",
-    price: 121.52,
-  },
-  {
-    name: "chanel coco mademoiselle",
-    price: 121.52,
-  },
-  {
-    name: "hugo boss oud aromatic",
     price: 121.52,
   },
 ];

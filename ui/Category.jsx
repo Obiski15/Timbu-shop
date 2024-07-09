@@ -75,8 +75,6 @@ function Category({ category }) {
     .replaceAll(" ", "-")}.png`;
   const categoryName = category.name.toLowerCase().replace(" ", "-");
 
-  console.log(categoryName === searchParams.get("category"));
-
   return (
     <>
       <MobileCategory>

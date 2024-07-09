@@ -50,7 +50,7 @@ function Profile() {
       <Dropdown>
         <Img src={profile} alt="user-profile" />
         <Name>
-          <span>Welcome, Emmanuel</span>
+          <span>Welcome, Obiski</span>
           <Dropdown.DropButton name="profile-dropdown">
             <DropdownIcon src={dropDown} alt="drop-down-icon" />
           </Dropdown.DropButton>

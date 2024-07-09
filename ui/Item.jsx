@@ -5,8 +5,6 @@ import { formatCurrency } from "../src/utils/helpers";
 import heart from "../src/assets/icons/white-heart.svg";
 import activeHeart from "../src/assets/icons/active-heart.svg";
 import Button from "./Button";
-import { useLocalStorage } from "../src/hooks/useLocalStorage";
-import { WISHLIST_KEY } from "../src/utils/constants";
 
 const StyledItem = styled.div`
   position: relative;

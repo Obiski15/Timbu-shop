@@ -176,8 +176,12 @@ function Cart() {
 
       <Mobile>
         <CartSummary />
+      </Mobile>
+
+      <Mobile>
         <OrderSummary />
       </Mobile>
+
       <Desktop>
         <SavedItems />
       </Desktop>
