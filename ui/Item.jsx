@@ -5,6 +5,7 @@ import { formatCurrency } from "../src/utils/helpers";
 import heart from "../src/assets/icons/white-heart.svg";
 import activeHeart from "../src/assets/icons/active-heart.svg";
 import Button from "./Button";
+import { useState } from "react";
 
 const StyledItem = styled.div`
   position: relative;
@@ -53,6 +54,8 @@ const ItemPrice = styled.p`
 `;
 
 function Item({ item }) {
+  const [hoveredIcon, setHoveredIcon] = useState("");
+
   const imagePath = `/images/${item.name
     .toLowerCase()
     .replaceAll(" ", "-")}.png`;
@@ -67,9 +70,19 @@ function Item({ item }) {
       </ItemDetails>
 
       <Icon
-        src={item.isItemSaved ? activeHeart : heart}
+        src={
+          (hoveredIcon === item.name && activeHeart) || item.isItemSaved
+            ? activeHeart
+            : heart
+        }
         style={{ top: "0.6rem" }}
         alt={item.name}
+        onMouseEnter={() => {
+          setHoveredIcon(item.name);
+        }}
+        onMouseLeave={() => {
+          setHoveredIcon("");
+        }}
       />
     </StyledItem>
   );
