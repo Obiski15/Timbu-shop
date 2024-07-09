@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Button from "./Button";
 import { formatCurrency } from "../src/utils/helpers";
 import HorizontalLine from "./HorizontalLine";
+import { useNavigate } from "react-router-dom";
 
 const Summary = styled.div`
   width: 100%;
@@ -95,6 +96,7 @@ const SummaryHeader = styled.span`
 `;
 
 function OrderSummary() {
+  const navigate = useNavigate();
   return (
     <Summary>
       <Header>
@@ -133,7 +135,9 @@ function OrderSummary() {
           </Row>
         </Main>
 
-        <Button full={true}>checkout</Button>
+        <Button full={true} onClick={() => navigate("/checkout")}>
+          checkout
+        </Button>
       </Body>
     </Summary>
   );

@@ -66,10 +66,6 @@ export const items = [
     name: "Joy Parfum Baccarat",
     price: 121.52,
   },
-  {
-    name: "N5 eau parfum spray",
-    price: 121.52,
-  },
 ];
 
 export const cart = [
@@ -80,14 +76,14 @@ export const cart = [
     inStock: true,
   },
   {
-    name: "N5 eau parfum spray",
-    price: 150.52,
+    name: "Flowerbomb Haute Couture",
+    price: 121.52,
     discount: 29,
     inStock: true,
   },
   {
-    name: "N5 eau parfum spray",
-    price: 150.52,
+    name: "Joy Parfum Baccarat",
+    price: 121.52,
     discount: 29,
     inStock: true,
   },
