@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import activeCart from "../src/assets/icons/active-cart.svg";
 import home from "../src/assets/icons/active-home.svg";
@@ -10,6 +11,7 @@ import wishlist from "../src/assets/icons/heart.svg";
 import cart from "../src/assets/icons/cart.svg";
 
 import Footer from "./Footer";
+import { useEffect, useRef } from "react";
 
 const StyledNav = styled.div`
   width: 100%;
@@ -18,7 +20,7 @@ const StyledNav = styled.div`
   align-items: center;
   gap: 3rem;
   padding: 10px 20px 10px 20px;
-  position: sticky;
+  position: fixed;
   z-index: 999;
   bottom: 0;
   background: #f8f6f4;
@@ -63,13 +65,19 @@ const Desktop = styled.div`
   width: 100%;
 `;
 
-function BottomNav() {
+function BottomNav({ setNavHeight }) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const ref = useRef();
+
+  useEffect(() => {
+    setNavHeight(ref.current.clientHeight);
+    console.log(ref);
+  }, [setNavHeight]);
 
   return (
     <>
-      <StyledNav>
+      <StyledNav ref={ref}>
         <NavWapper
           className={pathname === "/" ? "active-tab" : ""}
           onClick={() => {
@@ -112,5 +120,9 @@ function BottomNav() {
     </>
   );
 }
+
+BottomNav.propTypes = {
+  setNavHeight: PropTypes.func,
+};
 
 export default BottomNav;

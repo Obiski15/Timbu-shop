@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import CartItem from "./CartItem";
-
 import { cart as items } from "../src/data/data";
+
+import CartItem from "./CartItem";
 
 const Items = styled.div`
   width: 100%;

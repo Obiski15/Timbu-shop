@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { WISHLIST_KEY } from "../utils/constants";
 import { tempWishlist } from "../data/data";
@@ -11,17 +11,19 @@ import Categories from "../../ui/Categories";
 import BottomNav from "../../ui/BottomNav";
 
 function Homepage() {
+  const [navHeight, setNavHeight] = useState(0);
+
   useEffect(() => {
     localStorage.setItem(WISHLIST_KEY, JSON.stringify(tempWishlist));
   }, []);
 
   return (
-    <HomepageLayout>
+    <HomepageLayout navHeight={navHeight}>
       <HomepageHeader />
       <HorizontalLine gap={2} />
       <Categories />
       <Recommended />
-      <BottomNav />
+      <BottomNav setNavHeight={setNavHeight} />
     </HomepageLayout>
   );
 }

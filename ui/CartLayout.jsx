@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Layout = styled.div`
   min-height: 100svh;
@@ -9,14 +9,22 @@ const Layout = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   gap: 2rem;
+
+  @media only screen and (max-width: 1201px) {
+    ${(props) => css`
+      padding-bottom: ${props.navHeight}px;
+    `}
+  }
 `;
 
-function CartLayout({ children }) {
-  return <Layout>{children}</Layout>;
+function CartLayout({ children, navHeight }) {
+  console.log(navHeight);
+  return <Layout navHeight={navHeight}>{children}</Layout>;
 }
 
 CartLayout.propTypes = {
   children: PropTypes.node.isRequired,
+  navHeight: PropTypes.number,
 };
 
 export default CartLayout;

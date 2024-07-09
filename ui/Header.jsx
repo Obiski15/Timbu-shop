@@ -2,7 +2,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 import back from "../src/assets/icons/navigation.svg";
-import heart from "../src/assets/icons/heart.svg";
+import heart from "../src/assets/icons/active-heart.svg";
 import Logo from "./Logo";
 import Profile from "./Profile";
 
@@ -73,6 +73,14 @@ const Add = styled.div`
   }
 `;
 
+const Mobile = styled.div`
+  width: 100%;
+
+  @media only screen and (min-width: 1201px) {
+    display: none;
+  }
+`;
+
 function Header({ children }) {
   return (
     <StyledHeader>
@@ -85,7 +93,9 @@ function Header({ children }) {
 
       <Add>
         <Profile />
-        <ImgHeart src={heart} />
+        <Mobile>
+          <ImgHeart src={heart} />
+        </Mobile>
       </Add>
     </StyledHeader>
   );

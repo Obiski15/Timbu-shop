@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useState } from "react";
 
 import HorizontalLine from "../../ui/HorizontalLine";
 import OrderSummary from "../../ui/OrderSummary";
@@ -79,8 +80,9 @@ const ButtonWrapper = styled.div`
 
 function Cart() {
   const navigate = useNavigate();
+  const [navHeight, setNavHeight] = useState(0);
   return (
-    <CartLayout>
+    <CartLayout navHeight={navHeight}>
       <Header>Cart</Header>
       <HorizontalLine gap={2} />
 
@@ -190,7 +192,7 @@ function Cart() {
         <Recommended />
       </Desktop>
 
-      <ButtomNav />
+      <ButtomNav setNavHeight={setNavHeight} />
     </CartLayout>
   );
 }
