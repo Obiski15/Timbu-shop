@@ -13,6 +13,7 @@ const Item = styled.div`
 
   @media only screen and (min-width: 1201px) {
     width: 97%;
+    padding: 0;
     margin-top: 1rem;
     margin-right: auto;
 

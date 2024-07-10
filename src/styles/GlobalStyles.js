@@ -24,6 +24,8 @@ const GlobalStyles = createGlobalStyle`
   }
   
   body {
+    margin-left: auto;
+    margin-right: auto;
     font-family: "Poppins", sans-serif;
     font-style: normal;
     overflow-wrap: break-word;
