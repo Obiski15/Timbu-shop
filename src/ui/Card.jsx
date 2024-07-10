@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-import atm from "../src/assets/icons/atm.svg";
-import off from "../src/assets/icons/switch-off.svg";
-import on from "../src/assets/icons/switch-on.svg";
+import atm from "../assets/icons/atm.svg";
+import off from "../assets/icons/switch-off.svg";
+import on from "../assets/icons/switch-on.svg";
 
 import Button from "./Button";
 

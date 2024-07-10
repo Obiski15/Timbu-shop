@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-import search from "../src/assets/icons/search.svg";
-import filter from "../src/assets/icons/filter.svg";
-import camera from "../src/assets/icons/camera.svg";
+import search from "../assets/icons/search.svg";
+import filter from "../assets/icons/filter.svg";
+import camera from "../assets/icons/camera.svg";
 
 const Wrapper = styled.div`
   width: 100%;

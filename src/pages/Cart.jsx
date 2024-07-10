@@ -2,16 +2,16 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 
-import HorizontalLine from "../../ui/HorizontalLine";
-import OrderSummary from "../../ui/OrderSummary";
-import Recommended from "../../ui/Recommended";
-import CartSummary from "../../ui/CartSummary";
-import SavedItems from "../../ui/SavedItems";
-import CartLayout from "../../ui/CartLayout";
-import CartItems from "../../ui/CartItems";
-import ButtomNav from "../../ui/BottomNav";
-import Button from "../../ui/Button";
-import Header from "../../ui/Header";
+import HorizontalLine from "../ui/HorizontalLine";
+import OrderSummary from "../ui/OrderSummary";
+import Recommended from "../ui/Recommended";
+import CartSummary from "../ui/CartSummary";
+import SavedItems from "../ui/SavedItems";
+import CartLayout from "../ui/CartLayout";
+import CartItems from "../ui/CartItems";
+import ButtomNav from "../ui/BottomNav";
+import Button from "../ui/Button";
+import Header from "../ui/Header";
 
 const Desktop = styled.div`
   width: 100%;

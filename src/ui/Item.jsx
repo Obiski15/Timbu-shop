@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
-
-import { formatCurrency } from "../src/utils/helpers";
-import heart from "../src/assets/icons/white-heart.svg";
-import activeHeart from "../src/assets/icons/active-heart.svg";
-import Button from "./Button";
 import { useState } from "react";
+
+import { formatCurrency } from "../utils/helpers";
+import activeHeart from "../assets/icons/active-heart.svg";
+import heart from "../assets/icons/white-heart.svg";
+
+import Button from "./Button";
 
 const StyledItem = styled.div`
   position: relative;

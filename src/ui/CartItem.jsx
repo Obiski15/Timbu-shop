@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import remove from "../src/assets/icons/delete.svg";
-import { formatCurrency } from "../src/utils/helpers";
+import remove from "../assets/icons/delete.svg";
+import { formatCurrency } from "../utils/helpers";
 
 const Item = styled.div`
   width: 100%;

@@ -2,7 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { useEffect } from "react";
 
-import { categories } from "../src/data/data";
+import { categories } from "../data/data";
 
 import SwiperComponent from "./SwiperComponent";
 import Category from "./Category";

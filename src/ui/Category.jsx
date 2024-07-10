@@ -2,8 +2,8 @@ import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import activeRightArrow from "../src/assets/icons/active-right-arrow.svg";
-import rightArrow from "../src/assets/icons/right-arrow.svg";
+import activeRightArrow from "../assets/icons/active-right-arrow.svg";
+import rightArrow from "../assets/icons/right-arrow.svg";
 
 const MobileCategory = styled.figure`
   display: flex;

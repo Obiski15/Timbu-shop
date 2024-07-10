@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import SectionHeader from "./SectionHeader";
 import ItemsContainer from "./ItemsContainer";
-
+import SectionHeader from "./SectionHeader";
 import Item from "./Item";
 
 const StyledItems = styled`

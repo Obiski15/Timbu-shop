@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-import { items } from "../src/data/data";
+import { items } from "../data/data";
 
 import Item from "./Item";
-import { useLocalStorage } from "../src/hooks/useLocalStorage";
-import { WISHLIST_KEY } from "../src/utils/constants";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { WISHLIST_KEY } from "../utils/constants";
 
 const Container = styled.div`
   display: grid;

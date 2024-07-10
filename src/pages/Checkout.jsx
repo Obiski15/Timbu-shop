@@ -1,10 +1,10 @@
-import Header from "../../ui/Header";
-import CheckoutLayout from "../../ui/CheckoutLayout";
-import Card from "../../ui/Card";
-import OrderSummary from "../../ui/OrderSummary";
-import DeliveryDetails from "../../ui/DeliveryDetails";
+import Header from "../ui/Header";
+import CheckoutLayout from "../ui/CheckoutLayout";
+import Card from "../ui/Card";
+import OrderSummary from "../ui/OrderSummary";
+import DeliveryDetails from "../ui/DeliveryDetails";
 import styled from "styled-components";
-import HorizontalLine from "../../ui/HorizontalLine";
+import HorizontalLine from "../ui/HorizontalLine";
 
 const Main = styled.div`
   display: flex;

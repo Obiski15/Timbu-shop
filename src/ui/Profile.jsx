@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-import notification from "../src/assets/icons/notification.svg";
-import cart from "../src/assets/icons/cart.svg";
-import dropDown from "../src/assets/icons/drop-down.svg";
+import notification from "../assets/icons/notification.svg";
+import cart from "../assets/icons/cart.svg";
+import dropDown from "../assets/icons/drop-down.svg";
 import profile from "/images/profile.png";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "./Dropdown";
@@ -43,6 +43,12 @@ const DropdownIcon = styled.img`
   display: inline-block;
 `;
 
+const Mobile = styled.div`
+  @media only screen and (min-width: 1201px) {
+    display: none;
+  }
+`;
+
 function Profile() {
   const navigate = useNavigate();
   return (
@@ -64,7 +70,9 @@ function Profile() {
           </Dropdown.Window>
         </Name>
 
-        <img src={notification} alt="notification-icon" />
+        <Mobile>
+          <img src={notification} alt="notification-icon" />
+        </Mobile>
         <img src={cart} alt="cart-icon" onClick={() => navigate("/cart")} />
       </Dropdown>
     </Wrapper>

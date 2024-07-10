@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Button from "./Button";
-import { formatCurrency } from "../src/utils/helpers";
+import { formatCurrency } from "../utils/helpers";
 import HorizontalLine from "./HorizontalLine";
 import { useNavigate } from "react-router-dom";
 

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { cart as items } from "../src/data/data";
+import { cart as items } from "../data/data";
 
 import CartItem from "./CartItem";
 

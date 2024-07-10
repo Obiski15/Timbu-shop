@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import back from "../src/assets/icons/navigation.svg";
+import back from "../assets/icons/navigation.svg";
 
 const Header = styled.header`
   display: flex;

@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 
-import { useOutsideClick } from "../src/hooks/useOutsideClick";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 
 const StyledWidow = styled.div`
   background-color: transparent;
