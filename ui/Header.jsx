@@ -5,6 +5,7 @@ import back from "../src/assets/icons/navigation.svg";
 import heart from "../src/assets/icons/active-heart.svg";
 import Logo from "./Logo";
 import Profile from "./Profile";
+import { useNavigate } from "react-router-dom";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -82,13 +83,14 @@ const Mobile = styled.div`
 `;
 
 function Header({ children }) {
+  const navigate = useNavigate();
   return (
     <StyledHeader>
       <LogoWrapper>
         <Logo theme="dark" />
       </LogoWrapper>
 
-      <ImgBack src={back} alt="move-back-icon" />
+      <ImgBack src={back} alt="move-back-icon" onClick={() => navigate(-1)} />
       <Text>{children}</Text>
 
       <Add>
