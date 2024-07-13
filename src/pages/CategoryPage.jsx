@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
 
-import { WISHLIST_KEY } from "../utils/constants";
-import { useItems } from "../services/useItems";
-import { tempWishlist } from "../data/data";
+import { useCategory } from "../services/useCategory";
 
 import HomepageHeader from "../ui/HomepageHeader";
 import HomepageLayout from "../ui/HomepageLayout";
@@ -11,13 +10,14 @@ import Recommended from "../ui/Recommended";
 import Categories from "../ui/Categories";
 import BottomNav from "../ui/BottomNav";
 
-function Homepage() {
+function CategoryPage() {
+  const category = useParams()
+    .category.trim()
+    .replaceAll("/", "")
+    .replaceAll("-", " ");
   const [navHeight, setNavHeight] = useState(0);
-  const { data, isLoading, error } = useItems();
 
-  useEffect(() => {
-    localStorage.setItem(WISHLIST_KEY, JSON.stringify(tempWishlist));
-  }, []);
+  const { data, isLoading, error } = useCategory(category);
 
   return (
     <HomepageLayout navHeight={navHeight}>
@@ -30,4 +30,4 @@ function Homepage() {
   );
 }
 
-export default Homepage;
+export default CategoryPage;

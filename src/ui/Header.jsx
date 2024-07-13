@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
@@ -5,7 +6,6 @@ import back from "../assets/icons/navigation.svg";
 import heart from "../assets/icons/active-heart.svg";
 import Logo from "./Logo";
 import Profile from "./Profile";
-import { useNavigate } from "react-router-dom";
 
 const StyledHeader = styled.header`
   width: 100%;

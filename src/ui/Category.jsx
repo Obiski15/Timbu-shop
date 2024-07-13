@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
@@ -12,10 +12,6 @@ const MobileCategory = styled.figure`
   justify-content: space-between;
   padding: 6px;
   gap: 6px;
-
-  &:first-child figcaption {
-    color: var(--secondary-color);
-  }
 
   @media only screen and (min-width: 1201px) {
     display: none;
@@ -68,48 +64,50 @@ const Icon = styled.img`
 `;
 
 function Category({ category }) {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const { category: urlCategory } = useParams();
 
-  const imagePath = `/images/${category.name
-    .toLowerCase()
+  const categoryName = category.name
     .trim()
+    .toLowerCase()
     .replaceAll(" ", "-")
-    .replaceAll("&", "and")}.png`;
+    .replaceAll("&", "and");
 
-  const categoryName = category.name.toLowerCase().replace(" ", "-");
+  const textColor =
+    categoryName === urlCategory
+      ? "var(--secondary-color)"
+      : "var(--text-color)";
+
+  const imagePath = `/images/${categoryName}.png`;
+
+  function handleCategoryChange() {
+    navigate(`/${categoryName}`);
+  }
 
   return (
     <>
-      <MobileCategory>
+      <MobileCategory onClick={handleCategoryChange}>
         <CategoryImage src={imagePath} alt={category.name} />
-        <CategoryName>{category.name}</CategoryName>
+        <CategoryName
+          style={{
+            color: textColor,
+          }}
+        >
+          {category.name}
+        </CategoryName>
       </MobileCategory>
 
       <DesktopCategory>
-        <Row
-          onClick={() => {
-            searchParams.get("category") !== categoryName
-              ? searchParams.set("category", categoryName)
-              : searchParams.get("category");
-            setSearchParams(searchParams);
-          }}
-        >
+        <Row onClick={handleCategoryChange}>
           <p
             style={{
-              color:
-                categoryName === searchParams.get("category")
-                  ? "var(--secondary-color)"
-                  : "var(--text-color)",
+              color: textColor,
             }}
           >
             {category.name}
           </p>
           <Icon
-            src={
-              categoryName === searchParams.get("category")
-                ? activeRightArrow
-                : rightArrow
-            }
+            src={categoryName === urlCategory ? activeRightArrow : rightArrow}
             alt="right-arrow"
           />
         </Row>
@@ -120,9 +118,9 @@ function Category({ category }) {
 
 Category.propTypes = {
   category: PropTypes.object.isRequired,
-  index: PropTypes.number,
   activeCategory: PropTypes.object,
   onClick: PropTypes.func,
+  index: PropTypes.number,
 };
 
 export default Category;

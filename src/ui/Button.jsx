@@ -33,9 +33,9 @@ const StyledButton = styled.button`
     `}
 `;
 
-function Button({ children, full, type, onClick }) {
+function Button({ children, full, type, onClick, disabled }) {
   return (
-    <StyledButton full={full} type={type} onClick={onClick}>
+    <StyledButton full={full} type={type} disabled={disabled} onClick={onClick}>
       {children}
     </StyledButton>
   );
@@ -43,9 +43,10 @@ function Button({ children, full, type, onClick }) {
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func,
-  full: PropTypes.bool,
   type: PropTypes.string,
+  full: PropTypes.bool,
 };
 
 export default Button;

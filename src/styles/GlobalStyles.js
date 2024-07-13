@@ -71,11 +71,6 @@ const GlobalStyles = createGlobalStyle`
 
   *:disabled {
     cursor: no-drop;
-    background: none;
-  }
-
-  *:disabled:hover{
-    background: none;
   }
 
   .active-tab {

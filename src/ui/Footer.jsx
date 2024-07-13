@@ -91,7 +91,7 @@ function Footer() {
               <p>help center</p>
               <p>dispute policy</p>
               <p>return policy</p>
-              <p>caht with us</p>
+              <p>chat with us</p>
             </Links>
             <Links>
               <p>privacy notice</p>

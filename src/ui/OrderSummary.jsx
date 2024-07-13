@@ -1,8 +1,15 @@
-import styled from "styled-components";
-import Button from "./Button";
-import { formatCurrency } from "../utils/helpers";
-import HorizontalLine from "./HorizontalLine";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
+import { formatCurrency } from "../utils/helpers";
+
+import HorizontalLine from "./HorizontalLine";
+import Button from "./Button";
+import {
+  getTotalCartPrice,
+  getTotalItemQuantity,
+} from "../features/cart/cartSlice";
+import { useSelector } from "react-redux";
 
 const Summary = styled.div`
   width: 100%;
@@ -95,7 +102,11 @@ const SummaryHeader = styled.span`
   font-size: 2.4rem;
 `;
 
+const DELIVERY_FEE_PER_ITEM = 250;
 function OrderSummary() {
+  const cart = useSelector((state) => state.cart.cart);
+  const deliveryFee = DELIVERY_FEE_PER_ITEM * getTotalItemQuantity(cart);
+
   const navigate = useNavigate();
   return (
     <Summary>
@@ -111,14 +122,14 @@ function OrderSummary() {
           <PricesOutline>
             <Row>
               <Des>
-                Item <span>(1)</span>
+                Item <span>{`(${getTotalItemQuantity(cart)})`}</span>
               </Des>
-              <Fee>{formatCurrency(121.52)}</Fee>
+              <Fee>{formatCurrency(getTotalCartPrice(cart))}</Fee>
             </Row>
 
             <Row>
-              <Des>Delivery fee </Des>
-              <Fee>{formatCurrency(2.22)}</Fee>
+              <Des>Delivery fee</Des>
+              <Fee>{formatCurrency(deliveryFee)}</Fee>
             </Row>
 
             <Row>
@@ -131,7 +142,9 @@ function OrderSummary() {
 
           <Row>
             <Des>Total</Des>
-            <Total>{formatCurrency(124.74)}</Total>
+            <Total>
+              {formatCurrency(getTotalCartPrice(cart) + deliveryFee - 1)}
+            </Total>
           </Row>
         </Main>
 

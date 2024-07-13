@@ -1,8 +1,12 @@
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import remove from "../assets/icons/delete.svg";
+import { getItemQuantity, removeFromCart } from "../features/cart/cartSlice";
 import { formatCurrency } from "../utils/helpers";
+import remove from "../assets/icons/delete.svg";
+
+import ItemQuantityControl from "./ItemQuantityControl";
 
 const Item = styled.div`
   width: 100%;
@@ -62,6 +66,7 @@ const IconWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 0.4rem;
+  cursor: default;
 `;
 
 const Icon = styled.img`
@@ -98,40 +103,18 @@ const Discount = styled.p`
   text-decoration: line-through;
 `;
 
-const Control = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1.8rem;
-`;
-
-const ControlButton = styled.p`
-  line-height: 2.4rem;
-  width: 24px;
-  height: 24px;
-  text-align: center;
-  background-color: ${(props) =>
-    props.disabled ? "#FF7E084F" : "var(--secondary-color)"};
-`;
-
-const NumItems = styled.p`
-  font-weight: 500;
-  font-size: 1.6rem;
-`;
-
 function CartItem({ item }) {
-  const imagePath = `/images/${item.name
-    .toLowerCase()
-    .replaceAll(" ", "-")}.png`;
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart.cart);
 
   return (
     <Item>
       <DetailsWrapper>
-        <Img src={imagePath} alt={item.name} />
+        <Img src={item.image} alt={item.name} />
         <Details>
           <p>{item.name}</p>
           <p>{item.inStock ? "In Stock" : "Out of Stock"}</p>
-          <IconWrapper>
+          <IconWrapper onClick={() => dispatch(removeFromCart(item.id))}>
             <Icon src={remove} alt="remove-icon" />
             <IconText>remove</IconText>
           </IconWrapper>
@@ -139,13 +122,12 @@ function CartItem({ item }) {
       </DetailsWrapper>
 
       <Summary>
-        <Price>{formatCurrency(Math.ceil(+item.price - +item.discount))}</Price>
+        <Price>{formatCurrency(+item.price - +item.discount)}</Price>
         <Discount>{formatCurrency(+item.price)}</Discount>
-        <Control>
-          <ControlButton disabled={true}>-</ControlButton>
-          <NumItems>1</NumItems>
-          <ControlButton>+</ControlButton>
-        </Control>
+        <ItemQuantityControl
+          id={item.id}
+          disabled={getItemQuantity(cart, item.id) === 1}
+        />
       </Summary>
     </Item>
   );

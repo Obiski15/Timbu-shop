@@ -1,6 +1,4 @@
-import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
-import { useEffect } from "react";
 
 import { categories } from "../data/data";
 
@@ -68,13 +66,6 @@ const Categories = styled.div`
 `;
 
 function CategoriesContainer() {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  useEffect(() => {
-    searchParams.set("category", categories[0].name.replace(" ", "-"));
-    setSearchParams(searchParams);
-  }, []);
-
   return (
     <>
       <MobileCategoriesContainer>

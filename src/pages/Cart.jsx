@@ -1,6 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { useState } from "react";
+
+import { getTotalCartPrice } from "../features/cart/cartSlice";
+import { formatCurrency } from "../utils/helpers";
+import { useItems } from "../services/useItems";
 
 import HorizontalLine from "../ui/HorizontalLine";
 import OrderSummary from "../ui/OrderSummary";
@@ -79,8 +84,11 @@ const ButtonWrapper = styled.div`
 `;
 
 function Cart() {
-  const navigate = useNavigate();
+  const cart = useSelector((state) => state.cart.cart);
   const [navHeight, setNavHeight] = useState(0);
+  const { data, isLoading, error } = useItems();
+  const navigate = useNavigate();
+
   return (
     <CartLayout navHeight={navHeight}>
       <Header>Cart</Header>
@@ -159,13 +167,17 @@ function Cart() {
                 <Flex gap={2}>
                   <Subtotal>
                     <SubtotalHeader>Subtotal</SubtotalHeader>
-                    <Price>$100</Price>
+                    <Price>{formatCurrency(getTotalCartPrice(cart))}</Price>
                   </Subtotal>
 
                   <HorizontalLine />
 
                   <ButtonWrapper>
-                    <Button full={true} onClick={() => navigate("/checkout")}>
+                    <Button
+                      full={true}
+                      disabled={!cart.length}
+                      onClick={() => navigate("/checkout")}
+                    >
                       Checkout
                     </Button>
                   </ButtonWrapper>
@@ -189,7 +201,7 @@ function Cart() {
       </Desktop>
 
       <Desktop>
-        <Recommended />
+        <Recommended data={data} isLoading={isLoading} error={error} />
       </Desktop>
 
       <ButtomNav setNavHeight={setNavHeight} />
