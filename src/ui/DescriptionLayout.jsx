@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const Layout = styled.div`
   min-height: 100svh;
-  width: 900px;
+  min-width: 900px;
   margin-left: auto;
   margin-right: auto;
   padding: 20px 0 0 0;

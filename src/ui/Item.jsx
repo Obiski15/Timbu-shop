@@ -85,7 +85,9 @@ function Item({ item }) {
       <Img src={image} alt={name} />
       <ItemDetails>
         <ItemName>{name}</ItemName>
-        <ItemPrice>{formatCurrency(price)}</ItemPrice>
+        <ItemPrice>
+          {formatCurrency(typeof price !== Number ? 122.52 : price)}
+        </ItemPrice>
         {cart.find((product) => product.id === id) ? (
           <ItemQuantityControl id={id} />
         ) : (
