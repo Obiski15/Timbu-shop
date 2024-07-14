@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import PropTypes from "prop-types";
+import PropTypes, { number } from "prop-types";
 import { useState } from "react";
 
 import activeHeart from "../assets/icons/active-heart.svg";
@@ -86,7 +86,7 @@ function Item({ item }) {
       <ItemDetails>
         <ItemName>{name}</ItemName>
         <ItemPrice>
-          {formatCurrency(typeof price !== Number ? 122.52 : price)}
+          {formatCurrency(typeof price !== number ? 122.52 : price)}
         </ItemPrice>
         {cart.find((product) => product.id === id) ? (
           <ItemQuantityControl id={id} />
