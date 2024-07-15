@@ -8,13 +8,15 @@ Welcome to the Timbu Cloud Shop project! This project is a collaborative effort 
 
 - **Collaboration**: Partnered with a designer to bring the Timbu Cloud Shop page design to life.
 - **Responsive Design**: The website is fully responsive, ensuring optimal functionality on desktop, tablet, and mobile devices.
-- **Product Display**: Products are showcased with clear descriptions and high-quality images.
+- **Product Display**: Products are fetched and showcased with clear descriptions and high-quality images from [Timbu Cloud Api](https://timbu.cloud).
 - **Static Checkout Page**: A checkout page is implemented (static, no functional checkout process).
 
 ## Technologies Used
 
 - **Frontend**: React
 - **Styling**: Styled-components
+- **Global State**: React-Redux and @reduxjs/toolkit
+- **Data Fetching and caching**: @tanstack/react-query
 
 ## Requirements Met
 
@@ -28,7 +30,6 @@ Welcome to the Timbu Cloud Shop project! This project is a collaborative effort 
 ## Project Structure
 
 - **Components**: Reusable React components for the shop page, product listings, and checkout page.
-- **Pages**: Next.js pages for different sections of the shop.
 - **Styles**: Styled-components for maintaining clean and manageable styles.
 
 ## How to Run the Project
@@ -46,8 +47,8 @@ Welcome to the Timbu Cloud Shop project! This project is a collaborative effort 
    ```bash
    npm run dev
    ```
-4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+4. Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
 
 ## Links
 
-- **Live Demo**: [Timbu Cloud Shop on Vercel](https://your-vercel-app-url.vercel.app)
+- **Live Demo**: [Timbu Cloud Shop on Vercel](https://timbu-cloud-shop-five.vercel.app)
