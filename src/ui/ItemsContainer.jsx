@@ -1,5 +1,11 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { useEffect } from "react";
+
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { WISHLIST_KEY } from "../utils/constants";
+
+import Item from "./Item";
 
 const Container = styled.div`
   display: grid;
@@ -29,12 +35,37 @@ const Container = styled.div`
   }
 `;
 
-function ItemsContainer({ data, render }) {
-  return <Container>{data?.map(render)}</Container>;
+function ItemsContainer({ data, handleSetWishlist }) {
+  const { value: wishlist, setValue: setWishlist } = useLocalStorage(
+    WISHLIST_KEY,
+    []
+  );
+
+  useEffect(() => {
+    handleSetWishlist?.(wishlist);
+  }, [wishlist, handleSetWishlist]);
+
+  return (
+    <Container>
+      {data?.map((item, i) => {
+        const isItemSaved = Boolean(
+          wishlist.find((list) => list.id === item.id)
+        );
+        return (
+          <Item
+            item={{ ...item, isItemSaved }}
+            key={i + 1}
+            setWishlist={setWishlist}
+            wishlist={wishlist}
+          />
+        );
+      })}
+    </Container>
+  );
 }
 
 ItemsContainer.propTypes = {
-  render: PropTypes.func.isRequired,
+  handleSetWishlist: PropTypes.any,
   data: PropTypes.array.isRequired,
 };
 

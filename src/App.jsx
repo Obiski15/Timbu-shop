@@ -44,7 +44,9 @@ function App() {
 
   const queryClient = new QueryClient({
     defaultOptions: {
-      queries: { staleTime: Infinity },
+      queries: {
+        refetchOnWindowFocus: false,
+      },
     },
   });
 

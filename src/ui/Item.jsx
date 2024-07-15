@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import PropTypes, { number } from "prop-types";
+import PropTypes from "prop-types";
 import { useState } from "react";
 
 import activeHeart from "../assets/icons/active-heart.svg";
@@ -64,7 +64,7 @@ const ItemPrice = styled.p`
   color: var(--secondary-color);
 `;
 
-function Item({ item }) {
+function Item({ item, wishlist, setWishlist }) {
   const { id, name, photos, current_price } = item;
 
   const cart = useSelector((state) => state.cart.cart);
@@ -76,6 +76,18 @@ function Item({ item }) {
   const price = current_price?.[0]?.[CURRENCY]?.[0];
   const discount = 300;
 
+  function handleAddToWishlist() {
+    const newItem = { ...item, isItemSaved: true };
+    setWishlist((wishlist) => [...wishlist, newItem]);
+  }
+
+  function handleRemoveFromWishlist() {
+    const newItem = wishlist.filter((list) => list.id !== item.id);
+    setWishlist(newItem);
+  }
+
+  console.log(hoveredIcon === item.id);
+
   return (
     <StyledItem
       onClick={() => {
@@ -85,9 +97,7 @@ function Item({ item }) {
       <Img src={image} alt={name} />
       <ItemDetails>
         <ItemName>{name}</ItemName>
-        <ItemPrice>
-          {formatCurrency(typeof price !== number ? 122.52 : price)}
-        </ItemPrice>
+        <ItemPrice>{formatCurrency(price)}</ItemPrice>
         {cart.find((product) => product.id === id) ? (
           <ItemQuantityControl id={id} />
         ) : (
@@ -114,11 +124,7 @@ function Item({ item }) {
       </ItemDetails>
 
       <Icon
-        src={
-          (hoveredIcon === id && activeHeart) || item.isItem
-            ? activeHeart
-            : heart
-        }
+        src={hoveredIcon === item.id || item.isItemSaved ? activeHeart : heart}
         style={{ top: "0.6rem" }}
         alt={name}
         onMouseEnter={() => {
@@ -127,7 +133,13 @@ function Item({ item }) {
         onMouseLeave={() => {
           setHoveredIcon("");
         }}
-        onClick={() => {}}
+        onClick={(e) => {
+          console.log("clicked");
+          !item.isItemSaved
+            ? handleAddToWishlist()
+            : handleRemoveFromWishlist();
+          e.stopPropagation();
+        }}
       />
     </StyledItem>
   );

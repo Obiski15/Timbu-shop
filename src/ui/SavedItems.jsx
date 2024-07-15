@@ -1,11 +1,8 @@
 import styled from "styled-components";
-
-import { useLocalStorage } from "../hooks/useLocalStorage";
-import { WISHLIST_KEY } from "../utils/constants";
+import { useState } from "react";
 
 import ItemsContainer from "./ItemsContainer";
 import SectionHeader from "./SectionHeader";
-import Item from "./Item";
 
 const StyledSavedItems = styled.div`
   border-top: 1px solid #e2e1e1;
@@ -19,20 +16,15 @@ const StyledSavedItems = styled.div`
 `;
 
 function SavedItems() {
-  const { value: wishlist } = useLocalStorage(WISHLIST_KEY, []);
+  const [wishlist, setWishlist] = useState([]);
 
   return (
     <StyledSavedItems>
       <SectionHeader>
-        <p>Saved Items{`(${wishlist.length})`}</p>
+        <p>Saved Items{`(${wishlist?.length})`}</p>
       </SectionHeader>
 
-      <ItemsContainer
-        data={wishlist}
-        render={(item, i) => {
-          return <Item item={{ ...item, isItemSaved: true }} key={i + 1} />;
-        }}
-      />
+      <ItemsContainer data={wishlist} handleSetWishlist={setWishlist} />
     </StyledSavedItems>
   );
 }

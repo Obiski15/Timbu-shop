@@ -27,6 +27,7 @@ export const categories = [
 
 export const tempWishlist = [
   {
+    isItemSaved: true,
     id: 1,
     name: "N5 eau parfum spray",
     price: 121.52,
@@ -34,6 +35,7 @@ export const tempWishlist = [
       "https://api.timbu.cloud/images/ruvid-store/product_prada_candy_62822b_2.jpg",
   },
   {
+    isItemSaved: true,
     id: 2,
     name: "hugo boss oud aromatic",
     price: 121.52,
