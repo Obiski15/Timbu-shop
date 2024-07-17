@@ -30,7 +30,7 @@ export async function getItems(category) {
 async function getCategory(category) {
   try {
     const res = await fetch(
-      `https://api.timbu.cloud/api/categories?organization_id=${ORGANISATION_ID}&reverse_sort=false&page=1&size=10&Appid=${APP_ID}&Apikey=${API_KEY}`
+      `https://api.timbu.cloud/categories?organization_id=${ORGANISATION_ID}&reverse_sort=false&page=1&size=10&Appid=${APP_ID}&Apikey=${API_KEY}`
     );
 
     if (!res.ok)
@@ -51,7 +51,7 @@ async function getCategory(category) {
 export async function getItem(id) {
   try {
     const res = await fetch(
-      `https://api.timbu.cloud/api/products/${id}?organization_id=${ORGANISATION_ID}&Appid=${APP_ID}&Apikey=${API_KEY}`
+      `https://api.timbu.cloud/products/${id}?organization_id=${ORGANISATION_ID}&Appid=${APP_ID}&Apikey=${API_KEY}`
     );
 
     if (!res.ok)
