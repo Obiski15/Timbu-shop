@@ -16,7 +16,9 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      state.cart.push(action.payload);
+      const { price, discount, ...rest } = action.payload;
+      const item = { ...rest, totalPrice: price - discount };
+      state.cart.push(item);
       modifyCartStorage(state.cart);
       toast.success("Item Added to Cart");
     },
@@ -72,6 +74,12 @@ export function getItemQuantity(cart, id) {
 
 export function getTotalItemQuantity(cart) {
   return cart.reduce((acc, item) => acc + item.quantity, 0);
+}
+
+export function getTotalDiscount(cart) {
+  return cart
+    .map((item) => item.discount * item.quantity)
+    .reduce((acc, value) => acc + value, 0);
 }
 
 export default cartSlice.reducer;

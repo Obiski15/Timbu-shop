@@ -3,12 +3,12 @@ import { useState } from "react";
 
 import { useCategory } from "../services/useCategory";
 
-import HomepageHeader from "../ui/HomepageHeader";
-import HomepageLayout from "../ui/HomepageLayout";
-import HorizontalLine from "../ui/HorizontalLine";
+import HorizontalLine from "../ui/components/HorizontalLine";
+import HomepageLayout from "../ui/layouts/HomepageLayout";
+import BottomNav from "../ui/components/BottomNav";
+import MainHeader from "../ui/components/MainHeader";
 import Recommended from "../ui/Recommended";
 import Categories from "../ui/Categories";
-import BottomNav from "../ui/BottomNav";
 
 function CategoryPage() {
   const category = useParams()
@@ -21,7 +21,7 @@ function CategoryPage() {
 
   return (
     <HomepageLayout navHeight={navHeight}>
-      <HomepageHeader />
+      <MainHeader />
       <HorizontalLine gap={2} />
       <Categories />
       <Recommended error={error} data={data} isLoading={isLoading} />

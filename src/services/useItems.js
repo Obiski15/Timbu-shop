@@ -4,7 +4,7 @@ import { getItems } from "./itemsApi";
 export function useItems() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["items"],
-    queryFn: () => getItems(),
+    queryFn: getItems,
   });
 
   return { data, isLoading, error };

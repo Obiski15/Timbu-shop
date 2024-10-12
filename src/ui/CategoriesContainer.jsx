@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { categories } from "../data/data";
 
-import SwiperComponent from "./SwiperComponent";
+import SwiperWrapper from "./components/SwiperWrapper";
 import Category from "./Category";
 
 const MobileCategoriesContainer = styled.div`
@@ -15,28 +15,20 @@ const MobileCategoriesContainer = styled.div`
   padding: 10px 20px 10px 20px;
   gap: 0.8rem;
 
-  @media only screen and (min-width: 500px) {
-    grid-template-columns: 83px 83px 83px 83px 83px;
-  }
-
   @media only screen and (min-width: 600px) {
-    grid-template-columns: 83px 83px 83px 83px 83px 83px;
+    grid-template-columns: repeat(6, 83px);
   }
 
   @media only screen and (min-width: 700px) {
-    grid-template-columns: 83px 83px 83px 83px 83px 83px 83px;
+    grid-template-columns: repeat(7, 83px);
   }
 
   @media only screen and (min-width: 800px) {
-    grid-template-columns: 83px 83px 83px 83px 83px 83px 83px 83px;
+    grid-template-columns: repeat(8, 83px);
   }
 
   @media only screen and (min-width: 1024px) {
-    grid-template-columns: 83px 83px 83px 83px 83px 83px 83px 83px 83px;
-  }
-
-  @media only screen and (min-width: 800px) {
-    grid-template-columns: 83px 83px 83px 83px 83px 83px 83px 83px;
+    grid-template-columns: repeat(9, 83px);
   }
 
   @media only screen and (min-width: 1201px) {
@@ -81,7 +73,7 @@ function CategoriesContainer() {
           ))}
         </Categories>
 
-        <SwiperComponent />
+        <SwiperWrapper />
       </DesktopCategoriesContainer>
     </>
   );

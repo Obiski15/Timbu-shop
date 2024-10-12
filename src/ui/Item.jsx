@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { useState } from "react";
@@ -7,11 +8,9 @@ import activeHeart from "../assets/icons/active-heart.svg";
 import { addToCart } from "../features/cart/cartSlice";
 import heart from "../assets/icons/white-heart.svg";
 import { formatCurrency } from "../utils/helpers";
-import { CURRENCY } from "../utils/constants";
 
 import ItemQuantityControl from "./ItemQuantityControl";
-import Button from "./Button";
-import { useNavigate } from "react-router-dom";
+import Button from "./components/Button";
 
 const StyledItem = styled.div`
   position: relative;
@@ -73,7 +72,7 @@ function Item({ item, wishlist, setWishlist }) {
   const dispatch = useDispatch();
 
   const image = `https://api.timbu.cloud/images/${photos?.[0]?.url}`;
-  const price = current_price?.[0]?.[CURRENCY]?.[0];
+  const price = current_price?.[0]?.["NGN"]?.[0];
   const discount = 300;
 
   function handleAddToWishlist() {
@@ -85,8 +84,6 @@ function Item({ item, wishlist, setWishlist }) {
     const newItem = wishlist.filter((list) => list.id !== item.id);
     setWishlist(newItem);
   }
-
-  console.log(hoveredIcon === item.id);
 
   return (
     <StyledItem
@@ -110,7 +107,6 @@ function Item({ item, wishlist, setWishlist }) {
                   name,
                   price,
                   discount,
-                  totalPrice: price - discount,
                   quantity: 1,
                   image,
                 })

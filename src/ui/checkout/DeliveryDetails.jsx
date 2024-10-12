@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import HorizontalLine from "./HorizontalLine";
+
+import HorizontalLine from "../components/HorizontalLine";
 
 const Details = styled.div`
   width: 100%;

@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import spin from "../assets/icons/spinner.svg";
+
+import spin from "../../assets/icons/spinner.svg";
 
 const StyledSpinner = styled.div`
   width: 100%;

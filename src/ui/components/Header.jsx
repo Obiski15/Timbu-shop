@@ -2,10 +2,11 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import back from "../assets/icons/navigation.svg";
-import heart from "../assets/icons/active-heart.svg";
-import Logo from "./Logo";
-import Profile from "./Profile";
+import heart from "../../assets/icons/active-heart.svg";
+import back from "../../assets/icons/navigation.svg";
+
+import UserProfile from "../UserProfile";
+import Logo from "../components/Logo";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -94,7 +95,7 @@ function Header({ children }) {
       <Text>{children}</Text>
 
       <Add>
-        <Profile />
+        <UserProfile />
         <Mobile>
           <ImgHeart src={heart} />
         </Mobile>

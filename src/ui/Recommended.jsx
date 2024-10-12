@@ -2,11 +2,11 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 import ItemsContainer from "./ItemsContainer";
-import SectionHeader from "./SectionHeader";
-import ErrorMessage from "./ErrorMessage";
-import Spinner from "./Spinner";
+import SectionHeader from "./components/SectionHeader";
+import ErrorMessage from "./components/ErrorMessage";
+import Spinner from "./components/Spinner";
 import Item from "./Item";
-import NoResult from "./NoResult";
+import NoResult from "./components/NoResult";
 
 const StyledRecommended = styled.div`
   border-top: 1px solid #e2e1e1;

@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-function SwiperComponent() {
+function SwiperWrapper() {
   return (
     <Swiper
       modules={[Navigation, Pagination, A11y, Autoplay]}
@@ -41,4 +41,4 @@ function SwiperComponent() {
   );
 }
 
-export default SwiperComponent;
+export default SwiperWrapper;

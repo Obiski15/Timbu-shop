@@ -1,13 +1,13 @@
+import { useNavigate } from "react-router-dom";
+import Dropdown from "./components/Dropdown";
 import styled from "styled-components";
 
 import notification from "../assets/icons/notification.svg";
+import dropDownIcon from "../assets/icons/drop-down.svg";
+import dummyProfile from "/images/profile.png";
 import cart from "../assets/icons/cart.svg";
-import dropDown from "../assets/icons/drop-down.svg";
-import profile from "/images/profile.png";
-import { useNavigate } from "react-router-dom";
-import Dropdown from "./Dropdown";
 
-const Wrapper = styled.div`
+const Profile = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -49,16 +49,17 @@ const Mobile = styled.div`
   }
 `;
 
-function Profile() {
+function UserProfile() {
   const navigate = useNavigate();
+
   return (
-    <Wrapper>
+    <Profile>
       <Dropdown>
-        <Img src={profile} alt="user-profile" />
+        <Img src={dummyProfile} alt="user-profile" />
         <Name>
           <span>Welcome, Obiski</span>
           <Dropdown.DropButton name="profile-dropdown">
-            <DropdownIcon src={dropDown} alt="drop-down-icon" />
+            <DropdownIcon src={dropDownIcon} alt="drop-down-icon" />
           </Dropdown.DropButton>
 
           <Dropdown.Window name="profile-dropdown">
@@ -75,8 +76,8 @@ function Profile() {
         </Mobile>
         <img src={cart} alt="cart-icon" onClick={() => navigate("/cart")} />
       </Dropdown>
-    </Wrapper>
+    </Profile>
   );
 }
 
-export default Profile;
+export default UserProfile;

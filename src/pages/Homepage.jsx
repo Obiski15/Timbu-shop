@@ -4,12 +4,12 @@ import { WISHLIST_KEY } from "../utils/constants";
 import { useItems } from "../services/useItems";
 import { tempWishlist } from "../data/data";
 
-import HomepageHeader from "../ui/HomepageHeader";
-import HomepageLayout from "../ui/HomepageLayout";
-import HorizontalLine from "../ui/HorizontalLine";
+import HomepageLayout from "../ui/layouts/HomepageLayout";
+import HorizontalLine from "../ui/components/HorizontalLine";
+import MainHeader from "../ui/components/MainHeader";
+import BottomNav from "../ui/components/BottomNav";
 import Recommended from "../ui/Recommended";
 import Categories from "../ui/Categories";
-import BottomNav from "../ui/BottomNav";
 
 function Homepage() {
   const [navHeight, setNavHeight] = useState(0);
@@ -21,7 +21,7 @@ function Homepage() {
 
   return (
     <HomepageLayout navHeight={navHeight}>
-      <HomepageHeader />
+      <MainHeader />
       <HorizontalLine gap={2} />
       <Categories />
       <Recommended error={error} data={data} isLoading={isLoading} />

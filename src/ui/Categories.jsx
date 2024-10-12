@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import CategoriesContainer from "./CategoriesContainer";
-import SectionHeader from "./SectionHeader";
+import SectionHeader from "./components/SectionHeader";
 
 const MobileCategories = styled.div`
   width: 100%;

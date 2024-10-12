@@ -1,17 +1,17 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import activeCart from "../assets/icons/active-cart.svg";
-import home from "../assets/icons/active-home.svg";
-import profile from "/images/profile.png";
-import explore from "../assets/icons/dialpad.svg";
-import activeHome from "../assets/icons/home.svg";
-import wishlist from "../assets/icons/heart.svg";
-import cart from "../assets/icons/cart.svg";
-
 import Footer from "./Footer";
-import { useEffect, useRef } from "react";
+
+import activeCart from "../../assets/icons/active-cart.svg";
+import home from "../../assets/icons/active-home.svg";
+import explore from "../../assets/icons/dialpad.svg";
+import activeHome from "../../assets/icons/home.svg";
+import wishlist from "../../assets/icons/heart.svg";
+import cart from "../../assets/icons/cart.svg";
+import profile from "/images/profile.png";
 
 const StyledNav = styled.div`
   width: 100%;

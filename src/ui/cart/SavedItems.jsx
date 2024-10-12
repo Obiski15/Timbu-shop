@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-import ItemsContainer from "./ItemsContainer";
-import SectionHeader from "./SectionHeader";
+import SectionHeader from "../components/SectionHeader";
+import ItemsContainer from "../ItemsContainer";
 
 const StyledSavedItems = styled.div`
   border-top: 1px solid #e2e1e1;

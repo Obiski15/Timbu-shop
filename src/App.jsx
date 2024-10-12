@@ -9,7 +9,7 @@ import store from "./store";
 
 import CategoryPage from "./pages/CategoryPage";
 import PageNotFound from "./pages/PageNotFound";
-import Description from "./pages/Description";
+import Description from "./pages/ItemDescription";
 import Homepage from "./pages/Homepage";
 import Checkout from "./pages/Checkout";
 import Cart from "./pages/Cart";
@@ -52,10 +52,10 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <Provider store={store}>
         <GlobalStyles />
         <RouterProvider router={router} />
-        <ReactQueryDevtools initialIsOpen={true} />
         <Toaster
           position="top-right"
           reverseOrder={false}

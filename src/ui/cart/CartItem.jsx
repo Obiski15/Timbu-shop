@@ -2,11 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import { getItemQuantity, removeFromCart } from "../features/cart/cartSlice";
-import { formatCurrency } from "../utils/helpers";
-import remove from "../assets/icons/delete.svg";
+import { getItemQuantity, removeFromCart } from "../../features/cart/cartSlice";
+import { formatCurrency } from "../../utils/helpers";
 
-import ItemQuantityControl from "./ItemQuantityControl";
+import remove from "../../assets/icons/delete.svg";
+
+import ItemQuantityControl from "../ItemQuantityControl";
 
 const Item = styled.div`
   width: 100%;
@@ -104,17 +105,18 @@ const Discount = styled.p`
 `;
 
 function CartItem({ item }) {
-  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
+  const { totalPrice, name, discount, image, id } = item;
+  const dispatch = useDispatch();
 
   return (
     <Item>
       <DetailsWrapper>
-        <Img src={item.image} alt={item.name} />
+        <Img src={image} alt={name} />
         <Details>
-          <p>{item.name}</p>
+          <p>{name}</p>
           <p>{item.inStock ? "In Stock" : "Out of Stock"}</p>
-          <IconWrapper onClick={() => dispatch(removeFromCart(item.id))}>
+          <IconWrapper onClick={() => dispatch(removeFromCart(id))}>
             <Icon src={remove} alt="remove-icon" />
             <IconText>remove</IconText>
           </IconWrapper>
@@ -122,11 +124,13 @@ function CartItem({ item }) {
       </DetailsWrapper>
 
       <Summary>
-        <Price>{formatCurrency(+item.price - +item.discount)}</Price>
-        <Discount>{formatCurrency(+item.price)}</Discount>
+        <Price>{formatCurrency(+totalPrice)}</Price>
+        <Discount>
+          {formatCurrency(getItemQuantity(cart, id) * +discount)}
+        </Discount>
         <ItemQuantityControl
-          id={item.id}
-          disabled={getItemQuantity(cart, item.id) === 1}
+          id={id}
+          disabled={getItemQuantity(cart, id) === 1}
         />
       </Summary>
     </Item>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import copyright from "../assets/icons/copyright.svg";
+import copyright from "../../assets/icons/copyright.svg";
 import Logo from "./Logo";
 
 const StyledFooter = styled.footer`

@@ -7,16 +7,16 @@ import { getTotalCartPrice } from "../features/cart/cartSlice";
 import { formatCurrency } from "../utils/helpers";
 import { useItems } from "../services/useItems";
 
-import HorizontalLine from "../ui/HorizontalLine";
+import HorizontalLine from "../ui/components/HorizontalLine";
+import ButtomNav from "../ui/components/BottomNav";
+import CartLayout from "../ui/layouts/CartLayout";
+import CartSummary from "../ui/cart/CartSummary";
+import SavedItems from "../ui/cart/SavedItems";
 import OrderSummary from "../ui/OrderSummary";
+import Button from "../ui/components/Button";
+import Header from "../ui/components/Header";
 import Recommended from "../ui/Recommended";
-import CartSummary from "../ui/CartSummary";
-import SavedItems from "../ui/SavedItems";
-import CartLayout from "../ui/CartLayout";
 import CartItems from "../ui/CartItems";
-import ButtomNav from "../ui/BottomNav";
-import Button from "../ui/Button";
-import Header from "../ui/Header";
 
 const Desktop = styled.div`
   width: 100%;

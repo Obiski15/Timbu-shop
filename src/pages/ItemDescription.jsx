@@ -1,18 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import styled from "styled-components";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 import ItemQuantityControl from "../ui/ItemQuantityControl";
 import { addToCart } from "../features/cart/cartSlice";
 import { formatCurrency } from "../utils/helpers";
 import { useItem } from "../services/useItem";
 
-import DescriptionLayout from "../ui/DescriptionLayout";
-import FullPageSpinner from "../ui/FullPageSpinner";
-import FullPageError from "../ui/FullPageError";
-import Header from "../ui/Header";
-import Button from "../ui/Button";
+import DescriptionLayout from "../ui/layouts/DescriptionLayout";
+import FullPageSpinner from "../ui/components/FullPageSpinner";
+import FullPageError from "../ui/components/FullPageError";
+import Button from "../ui/components/Button";
+import Header from "../ui/components/Header";
 import toast from "react-hot-toast";
 
 const LargeImageWapper = styled.div`

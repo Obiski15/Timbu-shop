@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-import CartItem from "./CartItem";
+import CartItem from "./cart/CartItem";
 
 const Items = styled.div`
   width: 100%;

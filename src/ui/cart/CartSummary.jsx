@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-import { getTotalCartPrice } from "../features/cart/cartSlice";
+import { getTotalCartPrice } from "../../features/cart/cartSlice";
+import { formatCurrency } from "../../utils/helpers";
 
 const Summary = styled.div`
   width: 100%;
@@ -48,7 +49,7 @@ function CartSummary() {
       <Header>Cart Summary</Header>
       <Subtotal>
         <SubtotalHeader>Subtotal</SubtotalHeader>
-        <Price>{getTotalCartPrice(cart)}</Price>
+        <Price>{formatCurrency(getTotalCartPrice(cart))}</Price>
       </Subtotal>
     </Summary>
   );

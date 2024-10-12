@@ -1,11 +1,12 @@
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useState } from "react";
 
-import atm from "../assets/icons/atm.svg";
-import off from "../assets/icons/switch-off.svg";
-import on from "../assets/icons/switch-on.svg";
+import atm from "../../assets/icons/atm.svg";
+import off from "../../assets/icons/switch-off.svg";
+import on from "../../assets/icons/switch-on.svg";
 
-import Button from "./Button";
+import Button from "../components/Button";
 
 const Form = styled.form`
   width: 100%;
@@ -108,26 +109,55 @@ const Remind = styled.div`
   }
 `;
 
+const Error = styled.p`
+  font-size: 12px;
+  color: #dc2626;
+`;
+
 const Pay = styled.div`
   width: 100%;
   padding: 10px 20px 10px 20px;
 `;
 
 function Card() {
+  const date = new Date();
   const [rememberCard, setRememberCard] = useState(false);
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+  } = useForm({
+    defaultValues: {
+      cardNum: 6666666666,
+      expiryDate: `${date.getFullYear()}-${date
+        .getMonth()
+        .toString()
+        .padStart(2, 0)}-${date.getDate().toString().padStart(2, 0)}`,
+    },
+  });
+
+  function onSubmit(data) {
+    console.log(data);
+  }
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <CardWrapper>
         <CardNumber>
           <Label htmlFor="card-num">Card Number</Label>
 
+          {errors?.cardNum?.message && (
+            <Error>{errors?.cardNum?.message}</Error>
+          )}
           <InputWrapper>
             <Img src={atm} alt="card-icon" />
             <Input
               id="card-num"
               type="text"
-              defaultValue="0000-0000-0000-0000-0000"
+              placeholder="0000-0000-0000-0000-0000"
+              {...register("cardNum", {
+                required: "Kindly provide a valid card number",
+              })}
             />
           </InputWrapper>
         </CardNumber>
@@ -135,17 +165,41 @@ function Card() {
         <ValidTill>
           <DateWrapper>
             <Label htmlFor="date">Valid Date</Label>
+            {errors?.expiryDate?.message && (
+              <Error>{errors?.expiryDate?.message}</Error>
+            )}
             <InputWrapper>
               <Img src={atm} alt="card-icon" />
-              <Input type="date" id="date" />
+              <Input
+                type="date"
+                id="date"
+                {...register("expiryDate", {
+                  required: "Date field is required",
+                })}
+              />
             </InputWrapper>
           </DateWrapper>
 
           <CvvWrapper>
             <Label htmlFor="cvv">CVV</Label>
+            {errors?.cvv?.message && <Error>{errors?.cvv?.message}</Error>}
             <InputWrapper>
               <Img src={atm} alt="card-icon" />
-              <Input type="text" minLength={3} maxLength={3} id="cvv" />
+              <Input
+                type="text"
+                id="cvv"
+                {...register("cvv", {
+                  required: "cvv is required",
+                  maxLength: {
+                    value: 3,
+                    message: "minimum required length is 3",
+                  },
+                  minLength: {
+                    value: 3,
+                    message: "maximum required length is 3",
+                  },
+                })}
+              />
             </InputWrapper>
           </CvvWrapper>
         </ValidTill>
@@ -163,12 +217,7 @@ function Card() {
       </Remind>
 
       <Pay>
-        <Button
-          full={true}
-          onClick={(e) => {
-            e.preventDefault();
-          }}
-        >
+        <Button full={true}>
           Pay <span>$112</span>
         </Button>
       </Pay>
