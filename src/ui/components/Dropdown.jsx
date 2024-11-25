@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 
-import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { useOutsideClickAndScroll } from "../../hooks/useOutsideClickAndScroll";
 
 const StyledWidow = styled.div`
   background-color: transparent;
@@ -38,7 +38,7 @@ const StyledList = styled.div`
   }
 `;
 
-const Button = styled.button`
+const StyledButton = styled.button`
   width: 100%;
   padding: 0 1rem 0 1rem;
   text-transform: capitalize;
@@ -96,7 +96,7 @@ function List({ children }) {
 
 function Window({ name, children }) {
   const { isOpen, position, close } = useContext(DropdownContext);
-  const ref = useOutsideClick(close);
+  const ref = useOutsideClickAndScroll(isOpen, close, true);
 
   if (!name || name !== isOpen) return null;
 
@@ -106,6 +106,21 @@ function Window({ name, children }) {
     </StyledWidow>,
     document.body
   );
+}
+
+function Button({ children, onClick }) {
+  const { close } = useContext(DropdownContext);
+
+  function handleClick() {
+    close();
+
+    // delay to close window due to lazy loading
+    setTimeout(() => {
+      onClick?.();
+    }, 1);
+  }
+
+  return <StyledButton onClick={handleClick}>{children}</StyledButton>;
 }
 
 Window.propTypes = {
@@ -122,7 +137,12 @@ DropButton.propTypes = {
 };
 
 List.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
+};
+
+Button.propTypes = {
+  children: PropTypes.node,
+  onClick: PropTypes.func,
 };
 
 Dropdown.Window = Window;

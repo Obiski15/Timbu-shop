@@ -1,12 +1,10 @@
+import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import heart from "../../assets/icons/active-heart.svg";
-import back from "../../assets/icons/navigation.svg";
-
-import UserProfile from "../UserProfile";
-import Logo from "../components/Logo";
+import UserProfile from "../../features/profile/UserProfile";
+import Logo from "../../ui/components/Logo";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -14,21 +12,25 @@ const StyledHeader = styled.header`
   justify-content: flex-start;
   align-items: center;
   gap: 8px;
-  padding: 10px 20px 10px 20px;
+  padding: 2rem;
+  background-color: #f8f8f8;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 
-  @media only screen and (min-width: 1201px) {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0;
+  @media only screen and (min-width: 992px) {
+    background: transparent;
+    position: static;
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
   }
 `;
 
 const LogoWrapper = styled.div`
-  width: auto;
+  display: none;
 
-  @media only screen and (max-width: 1201px) {
-    display: none;
+  @media only screen and (min-width: 992px) {
+    display: block;
   }
 `;
 
@@ -41,25 +43,22 @@ const Text = styled.div`
   text-transform: capitalize;
   text-align: center;
 
-  @media only screen and (min-width: 1201px) {
+  @media only screen and (min-width: 992px) {
     line-height: 3.2rem;
     font-weight: 500;
     font-size: 4rem;
   }
 `;
 
-const ImgBack = styled.img`
-  width: 24px;
-  height: 24px;
+const Back = styled.div`
+  & > svg {
+    width: 24px;
+    height: 24px;
+  }
 
-  @media only screen and (min-width: 1201px) {
+  @media only screen and (min-width: 992px) {
     display: none;
   }
-`;
-
-const ImgHeart = styled.img`
-  width: 24px;
-  height: 24px;
 `;
 
 const Add = styled.div`
@@ -69,17 +68,10 @@ const Add = styled.div`
   gap: 3.5rem;
 
   & div:first-child {
-    @media only screen and (max-width: 1201px) {
-      display: none;
-    }
-  }
-`;
-
-const Mobile = styled.div`
-  width: 100%;
-
-  @media only screen and (min-width: 1201px) {
     display: none;
+    @media only screen and (min-width: 992px) {
+      display: flex;
+    }
   }
 `;
 
@@ -91,14 +83,13 @@ function Header({ children }) {
         <Logo theme="dark" />
       </LogoWrapper>
 
-      <ImgBack src={back} alt="move-back-icon" onClick={() => navigate(-1)} />
+      <Back>
+        <IoIosArrowBack onClick={() => navigate(-1)} />
+      </Back>
       <Text>{children}</Text>
 
       <Add>
         <UserProfile />
-        <Mobile>
-          <ImgHeart src={heart} />
-        </Mobile>
       </Add>
     </StyledHeader>
   );

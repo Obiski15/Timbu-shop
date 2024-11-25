@@ -1,19 +1,24 @@
 import styled from "styled-components";
 
-import copyright from "../../assets/icons/copyright.svg";
 import Logo from "./Logo";
+import { memo } from "react";
 
 const StyledFooter = styled.footer`
-  width: 100%;
-  background-color: #22252a;
-  color: #f8f7f7;
+  display: none;
+
+  @media only screen and (min-width: 992px) {
+    display: block;
+    position: sticky;
+    top: 100%;
+    width: 100%;
+    background-color: #22252a;
+    color: #f8f7f7;
+  }
 `;
 
 const Wrapper = styled.div`
   padding: 48px 0px 46px 0px;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
+  padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -27,7 +32,7 @@ const Main = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 152px;
+  gap: 15.2rem;
 `;
 
 const Copyright = styled.div`
@@ -37,13 +42,17 @@ const Copyright = styled.div`
   gap: 1.1rem;
 `;
 
+const Copy = styled.p`
+  font-size: 2rem;
+`;
+
 const LinksWrapper = styled.div`
   flex: 1;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
 
-  padding: 0px 16px 0px 16px;
+  padding: 0 1.6rem;
 `;
 
 const Links = styled.div`
@@ -54,7 +63,7 @@ const Links = styled.div`
   align-items: start;
   justify-content: space-between;
   gap: 0.6rem;
-  padding: 0px 16px 0px 16px;
+  padding: 0 1.6rem;
 
   & p {
     text-transform: capitalize;
@@ -69,12 +78,7 @@ const Links = styled.div`
   }
 `;
 
-const Img = styled.img`
-  width: 24px;
-  height: 24px;
-`;
-
-function Footer() {
+const Footer = memo(function Footer() {
   return (
     <StyledFooter>
       <Wrapper>
@@ -109,7 +113,7 @@ function Footer() {
         </Main>
 
         <Copyright>
-          <Img src={copyright} alt="copyright-icon" />
+          <Copy>&copy;</Copy>
           <div>
             <span>All rights reserved, Ruvid Store, </span>
             <span>{new Date().getFullYear()}</span>
@@ -118,6 +122,6 @@ function Footer() {
       </Wrapper>
     </StyledFooter>
   );
-}
+});
 
 export default Footer;

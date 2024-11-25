@@ -1,11 +1,8 @@
 import styled from "styled-components";
 
-import search from "../../assets/icons/search.svg";
-import filter from "../../assets/icons/filter.svg";
-import camera from "../../assets/icons/camera.svg";
-
+import UserProfile from "../../features/profile/UserProfile";
+import InputSearch from "../../features/search/InputSearch";
 import Logo from "./Logo";
-import UserProfile from "../UserProfile";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -14,11 +11,11 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
 
   @media only screen and (min-width: 992px) {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+    padding: 2rem;
     flex-direction: row;
     gap: 2.5rem;
   }
@@ -34,37 +31,12 @@ const LogoWrapper = styled.div`
 `;
 
 const ProfileWrapper = styled.div`
-  width: 100%;
+  display: none;
   order: 3;
 
   @media only screen and (min-width: 992px) {
+    display: block;
     width: auto;
-  }
-`;
-
-const InputWrapper = styled.div`
-  width: 100%;
-  padding: 10px 20px 10px 20px;
-
-  @media only screen and (min-width: 992px) {
-    order: 2;
-    flex-basis: 50%;
-    width: auto;
-  }
-`;
-
-const StyledInput = styled.div`
-  width: 100%;
-  padding: 8px 16px 8px 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  background-color: var(--input-background);
-  border-radius: 2rem;
-
-  & input {
-    flex: 1;
   }
 `;
 
@@ -79,14 +51,7 @@ function MainHeader() {
         <UserProfile />
       </ProfileWrapper>
 
-      <InputWrapper>
-        <StyledInput>
-          <img src={search} alt="search-icon" />
-          <input type="text" placeholder="Search" />
-          <img src={camera} alt="search-icon" />
-          <img src={filter} alt="search-icon" />
-        </StyledInput>
-      </InputWrapper>
+      <InputSearch />
     </StyledHeader>
   );
 }

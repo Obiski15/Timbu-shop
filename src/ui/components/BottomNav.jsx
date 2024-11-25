@@ -1,17 +1,10 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { IoHomeOutline } from "react-icons/io5";
+import { FaRegHeart } from "react-icons/fa";
+import { MdDialpad } from "react-icons/md";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 
-import Footer from "./Footer";
-
-import activeCart from "../../assets/icons/active-cart.svg";
-import home from "../../assets/icons/active-home.svg";
-import explore from "../../assets/icons/dialpad.svg";
-import activeHome from "../../assets/icons/home.svg";
-import wishlist from "../../assets/icons/heart.svg";
-import cart from "../../assets/icons/cart.svg";
-import profile from "/images/profile.png";
+import CartIcon from "./CartIcon";
 
 const StyledNav = styled.div`
   width: 100%;
@@ -19,35 +12,40 @@ const StyledNav = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 3rem;
-  padding: 10px 20px 10px 20px;
-  position: fixed;
+  padding: 1rem 2rem;
+
+  position: sticky;
   z-index: 999;
   bottom: 0;
   background: #f8f8f8;
   box-shadow: 0px 2px 2px 0px #bec0bf33 inset;
 
-  @media only screen and (min-width: 1201px) {
+  @media only screen and (min-width: 992px) {
     display: none;
   }
 `;
 
-const NavWapper = styled.div`
+const Nav = styled.button`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   gap: 0.4rem;
+
+  & svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  &.active-tab {
+    color: var(--secondary-color);
+  }
 `;
 
 const IconName = styled.p`
   font-weight: 400;
   font-size: 1.2rem;
   text-transform: capitalize;
-`;
-
-const Img = styled.img`
-  width: 24px;
-  height: 24px;
 `;
 
 const ProfileImg = styled.img`
@@ -57,71 +55,60 @@ const ProfileImg = styled.img`
   object-fit: cover;
 `;
 
-const Desktop = styled.div`
-  @media only screen and (max-width: 1201px) {
-    display: none;
-  }
-
-  width: 100%;
-`;
-
-function BottomNav({ setNavHeight }) {
+function BottomNav() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const ref = useRef();
-
-  useEffect(() => {
-    setNavHeight(ref.current.clientHeight);
-  }, [setNavHeight]);
 
   return (
-    <>
-      <StyledNav ref={ref}>
-        <NavWapper
-          className={pathname === "/" ? "active-tab" : ""}
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          <Img src={pathname === "/" ? activeHome : home} alt="homepage icon" />
-          <IconName>home</IconName>
-        </NavWapper>
+    <StyledNav>
+      <Nav
+        className={pathname === "/" ? "active-tab" : ""}
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        <IoHomeOutline />
 
-        <NavWapper>
-          <Img src={explore} alt="explore-icon" />
-          <IconName>explore</IconName>
-        </NavWapper>
+        <IconName>home</IconName>
+      </Nav>
 
-        <NavWapper
-          onClick={() => {
-            navigate("/cart");
-          }}
-          className={pathname === "/cart" ? "active-tab" : ""}
-        >
-          <Img src={pathname === "/cart" ? activeCart : cart} alt="cart-icon" />
-          <IconName>cart</IconName>
-        </NavWapper>
+      <Nav
+        onClick={() => {
+          navigate("/explore");
+        }}
+        className={pathname === "/explore" ? "active-tab" : ""}
+      >
+        <MdDialpad />
+        <IconName>explore</IconName>
+      </Nav>
 
-        <NavWapper>
-          <Img src={wishlist} alt="wishlist-icon" />
-          <IconName>wishlist</IconName>
-        </NavWapper>
+      <Nav className={pathname === "/cart" ? "active-tab" : ""}>
+        <CartIcon />
 
-        <NavWapper>
-          <ProfileImg src={profile} alt="user-profile" />
-          <IconName>profile</IconName>
-        </NavWapper>
-      </StyledNav>
+        <IconName>cart</IconName>
+      </Nav>
 
-      <Desktop>
-        <Footer />
-      </Desktop>
-    </>
+      <Nav
+        onClick={() => {
+          navigate("/wishlist");
+        }}
+        className={pathname === "/wishlist" ? "active-tab" : ""}
+      >
+        <FaRegHeart />
+        <IconName>wishlist</IconName>
+      </Nav>
+
+      <Nav
+        onClick={() => {
+          navigate("/profile");
+        }}
+        className={pathname === "/profile" ? "active-tab" : ""}
+      >
+        <ProfileImg src={"/images/profile.png"} alt="user-profile" />
+        <IconName>profile</IconName>
+      </Nav>
+    </StyledNav>
   );
 }
-
-BottomNav.propTypes = {
-  setNavHeight: PropTypes.func,
-};
 
 export default BottomNav;

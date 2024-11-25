@@ -1,37 +1,49 @@
+import { MdKeyboardArrowRight } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-const Header = styled.div`
+const StyledSectionHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px 10px 20px;
+  padding: 2rem;
+  font-weight: 500;
+  font-size: 1.6rem;
+  background-color: black;
+  border-radius: 0.5rem 0.5rem 0 0;
+  color: white;
+  text-transform: capitalize;
+  margin: 2rem 2rem 0 2rem;
+`;
 
-  & p {
-    font-size: 16px;
-    font-weight: 500;
-  }
+const Button = styled.button`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
 
-  & p:first-child {
-    flex: 1;
-  }
-
-  & p:nth-child(2) {
-    color: var(--secondary-color);
-    &:hover {
-      text-decoration: underline;
-      cursor: default;
-    }
-  }
-
-  @media only screen and (min-width: 1201px) {
-    padding-left: 0;
-    padding-right: 0;
+  & svg {
+    width: 24px;
+    height: 24px;
   }
 `;
 
 function SectionHeader({ children }) {
-  return <Header>{children}</Header>;
+  const navigate = useNavigate();
+  return (
+    <StyledSectionHeader>
+      <p>{children}</p>
+
+      <Button onClick={() => navigate("/recommended")}>
+        <span>view all</span>
+        <MdKeyboardArrowRight />
+      </Button>
+    </StyledSectionHeader>
+  );
 }
 
 SectionHeader.propTypes = {

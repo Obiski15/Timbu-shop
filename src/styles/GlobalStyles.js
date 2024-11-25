@@ -6,17 +6,20 @@ const GlobalStyles = createGlobalStyle`
     --secondary-color: #FF7E08; 
     --primary-color: #045B3B;
     --text-color: #00140D;
-
+    --border: #d4d4d6;
+    --modal-background :#fbf8f8ff;
+    --destructive: hsl(0 100% 61%);
+    --backdrop : rgba(255, 255, 255, 0.1);
     --input-background: #F2F1F0; 
   }
   
-    *,
-    *::before,
-    *::after{
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-      transition: background-color 0.3s, border 0.3s;
+  *,
+  *::before,
+  *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s, border 0.3s;
   }
 
   html {
@@ -34,7 +37,7 @@ const GlobalStyles = createGlobalStyle`
     line-height: 1.8rem;
     font-size: 1.4rem ;
 
-    min-width: 393px;
+    min-width: 360px;
     max-width: 1440px;
     transition: color 0.3s, background-color 0.3s;
   }
@@ -53,17 +56,14 @@ const GlobalStyles = createGlobalStyle`
     outline: none;
   }
 
-  ul {
-    list-style: none; 
-  }
-
   input:focus,
   textarea:focus,
   select:focus {
     background: none;
+    outline: none;
   }
 
-  input, button{
+  input, button {
     outline: none;
     background: none;
     border: none;
@@ -73,17 +73,20 @@ const GlobalStyles = createGlobalStyle`
     cursor: no-drop;
   }
 
-  .active-tab {
-    color: var(--secondary-color);  
+  @keyframes fadeOut {
+    from {
+      height: 400px;
+      display: block;
+    } to {
+      height: 0;
+      display: none;
+
+    }
   }
 
-  /* swiper */
-  .swiper-button-prev,
-  .swiper-button-next {
-    display: none;
+  .modal-fade-out {
+    animation: fadeOut 0.2s ease-out;
   }
-
-
   `;
 
 export default GlobalStyles;

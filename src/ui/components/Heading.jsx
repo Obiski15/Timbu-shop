@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
 
-const StyledHeading = styled.h1`
+export const Heading = styled.h1`
   ${(props) => {
     switch (props.as) {
       case "h2":
@@ -26,18 +25,8 @@ const StyledHeading = styled.h1`
         `;
       default:
         return css`
-          font-weight: 700;
+          font-weight: 500;
         `;
     }
   }}
 `;
-
-function Heading({ children }) {
-  return <StyledHeading>{children}</StyledHeading>;
-}
-
-Heading.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-export default Heading;

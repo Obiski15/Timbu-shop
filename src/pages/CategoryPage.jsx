@@ -1,32 +1,68 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
 
-import { useCategory } from "../services/useCategory";
+import { useCategory } from "../services/categories/useCategory";
 
-import HorizontalLine from "../ui/components/HorizontalLine";
-import HomepageLayout from "../ui/layouts/HomepageLayout";
-import BottomNav from "../ui/components/BottomNav";
-import MainHeader from "../ui/components/MainHeader";
-import Recommended from "../ui/Recommended";
-import Categories from "../ui/Categories";
+import HorizontalItemsContainer from "../features/items/HorizontalItemsContainer";
+import ItemsContainer from "../features/items/ItemsContainer";
+import Categories from "../features/categories/Categories";
+import ErrorMessage from "../ui/components/ErrorMessage";
+import PageLayout from "../ui/layouts/PageLayout";
+import Spinner from "../ui/components/Spinner";
 
 function CategoryPage() {
-  const category = useParams()
-    .category.trim()
-    .replaceAll("/", "")
-    .replaceAll("-", " ");
-  const [navHeight, setNavHeight] = useState(0);
-
-  const { data, isLoading, error } = useCategory(category);
+  const { category: categoryId } = useParams();
+  const {
+    category,
+    isLoading: isLoadingCategory,
+    error: categoryError,
+  } = useCategory(categoryId);
 
   return (
-    <HomepageLayout navHeight={navHeight}>
-      <MainHeader />
-      <HorizontalLine gap={2} />
+    <PageLayout>
       <Categories />
-      <Recommended error={error} data={data} isLoading={isLoading} />
-      <BottomNav setNavHeight={setNavHeight} />
-    </HomepageLayout>
+      <div
+        style={{
+          backgroundColor: "var(--secondary-color)",
+          color: "white",
+          padding: "1.5rem",
+          textAlign: "center",
+          textTransform: "uppercase",
+          fontSize: "2rem",
+          fontWeight: 600,
+          margin: "2rem 2rem 0 2rem",
+          borderRadius: "0.5rem",
+        }}
+      >
+        {categoryId}
+      </div>
+
+      <ItemsContainer categoryId={categoryId} heading="top deals" />
+      <div
+        style={{
+          backgroundColor: "red",
+          color: "white",
+          padding: "1.5rem",
+          textAlign: "center",
+          textTransform: "uppercase",
+          fontSize: "1.6rem",
+          fontWeight: 600,
+          margin: "2rem 2rem 0 2rem",
+          borderRadius: "0.5rem",
+        }}
+      >
+        Shop by category
+      </div>
+
+      {isLoadingCategory && <Spinner />}
+      {categoryError && <ErrorMessage message={categoryError.message} />}
+      {category?.data?.category?.subCategory?.map((category, i) => (
+        <HorizontalItemsContainer
+          key={i + 1}
+          categoryId={category}
+          heading={category}
+        />
+      ))}
+    </PageLayout>
   );
 }
 

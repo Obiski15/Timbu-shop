@@ -1,33 +1,48 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import PropTypes from "prop-types";
+
+import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const Layout = styled.div`
   min-height: 100svh;
-  min-width: 900px;
   margin-left: auto;
   margin-right: auto;
-  padding: 20px 0 0 0;
-  border: 2px solid gold;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   gap: 2rem;
+`;
 
-  @media only screen and (max-width: 1201px) {
-    ${(props) => css`
-      padding-bottom: ${props.navHeight}px;
-    `}
+const Main = styled.div`
+  width: 100%;
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  justify-content: center;
+  align-items: start;
+  grid-gap: 1rem;
+
+  @media only screen and (min-width: 768px) {
+    padding: 0 2rem;
   }
 `;
 
-function DescriptionLayout({ children, navHeight }) {
-  return <Layout navHeight={navHeight}>{children}</Layout>;
+function DescriptionLayout({ children }) {
+  return (
+    <Layout>
+      <Header>Description</Header>
+      <Main>{children}</Main>
+
+      <Footer />
+    </Layout>
+  );
 }
 
 DescriptionLayout.propTypes = {
   children: PropTypes.node.isRequired,
-  navHeight: PropTypes.number,
 };
 
 export default DescriptionLayout;

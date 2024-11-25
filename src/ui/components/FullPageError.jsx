@@ -9,7 +9,7 @@ const StyledError = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--backdrop-color);
+  background-color: var(--backdrop);
 
   & > div {
     position: absolute;

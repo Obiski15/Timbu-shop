@@ -1,22 +1,23 @@
 import styled from "styled-components";
 
-import spin from "../../assets/icons/spinner.svg";
+import spin from "../../assets/icons/spin.svg";
 
-const StyledSpinner = styled.div`
-  width: 100%;
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Icon = styled.img`
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
 `;
 
 function Spinner() {
   return (
-    <StyledSpinner>
-      <Icon src={spin} />
-    </StyledSpinner>
+    <Wrapper>
+      <Icon src={spin} alt="spinner" />
+    </Wrapper>
   );
 }
 

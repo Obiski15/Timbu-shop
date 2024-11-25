@@ -1,6 +1,4 @@
-import styled from "styled-components";
-
-import Spinner from "./Spinner";
+import styled, { keyframes } from "styled-components";
 
 const StyledSpinner = styled.div`
   position: fixed;
@@ -8,7 +6,9 @@ const StyledSpinner = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--backdrop-color);
+  z-index: 99999;
+  background-color: var(--backdrop);
+  backdrop-filter: blur(3px);
 
   & > div {
     position: absolute;
@@ -18,10 +18,33 @@ const StyledSpinner = styled.div`
   }
 `;
 
+const imageAnimate = keyframes`
+  from {
+    transform: scale(1);
+  } to {
+    transform: scale(1.5);
+  }
+`;
+
+const Image = styled.div`
+  width: 50px;
+  height: 50px;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  animation: ${imageAnimate} 0.5s linear infinite alternate;
+`;
+
 function FullPageSpinner() {
   return (
     <StyledSpinner>
-      <Spinner />
+      <Image>
+        <img src="/loading_logo.png" alt="loading" />
+      </Image>
     </StyledSpinner>
   );
 }

@@ -1,29 +1,37 @@
+import styled from "styled-components";
 import PropTypes from "prop-types";
-import styled, { css } from "styled-components";
+
+import BottomNav from "../components/BottomNav";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const Layout = styled.div`
   min-height: 100svh;
-  padding: 20px 0 0 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 2rem;
-
-  @media only screen and (max-width: 1201px) {
-    ${(props) => css`
-      padding-bottom: ${props.navHeight}px;
-    `}
-  }
+  gap: 4rem;
 `;
 
-function CartLayout({ children, navHeight }) {
-  return <Layout navHeight={navHeight}>{children}</Layout>;
+const Main = styled.div`
+  width: 100%;
+  flex: 1;
+`;
+
+function CartLayout({ children }) {
+  return (
+    <Layout>
+      <Header>Cart</Header>
+      <Main>{children}</Main>
+      <Footer />
+      <BottomNav />
+    </Layout>
+  );
 }
 
 CartLayout.propTypes = {
   children: PropTypes.node.isRequired,
-  navHeight: PropTypes.number,
 };
 
 export default CartLayout;

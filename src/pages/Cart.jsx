@@ -1,210 +1,121 @@
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { useState } from "react";
 
-import { getTotalCartPrice } from "../features/cart/cartSlice";
-import { formatCurrency } from "../utils/helpers";
-import { useItems } from "../services/useItems";
+import { useCart } from "../services/cart/useCart";
 
-import HorizontalLine from "../ui/components/HorizontalLine";
-import ButtomNav from "../ui/components/BottomNav";
+import HorizontalItemsContainer from "../features/items/HorizontalItemsContainer";
+import ItemsContainer from "../features/items/ItemsContainer";
+import OrderSummary from "../features/checkout/OrderSummary";
+import ErrorMessage from "../ui/components/ErrorMessage";
+import SavedItems from "../features/items/SavedItems";
+import EmptyCart from "../features/cart/EmptyCart";
+import CartItems from "../features/cart/CartItems";
 import CartLayout from "../ui/layouts/CartLayout";
-import CartSummary from "../ui/cart/CartSummary";
-import SavedItems from "../ui/cart/SavedItems";
-import OrderSummary from "../ui/OrderSummary";
-import Button from "../ui/components/Button";
-import Header from "../ui/components/Header";
-import Recommended from "../ui/Recommended";
-import CartItems from "../ui/CartItems";
 
 const Desktop = styled.div`
-  width: 100%;
+  display: none;
 
-  @media only screen and (max-width: 1201px) {
-    display: none;
+  @media only screen and (min-width: 992px) {
+    width: 100%;
+    display: block;
   }
 `;
 
 const Mobile = styled.div`
   width: 100%;
+  display: block;
 
-  @media only screen and (min-width: 1201px) {
+  @media only screen and (min-width: 992px) {
     display: none;
   }
 `;
 
-const Flex = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: ${(props) => `${props.gap}rem`};
-`;
-
-const CartText = styled.p`
+const CartHeader = styled.p`
+  border-bottom: 1px solid var(--border);
   text-transform: capitalize;
   font-weight: 600;
   font-size: 2.4rem;
   line-height: 3rem;
 `;
 
-const CartSummaryText = styled.p`
-  text-transform: capitalize;
-  padding: 0 0 0 20px;
-  font-weight: 600;
-  font-size: 2.4rem;
-  line-height: 3rem;
+const SummaryHeader = styled(CartHeader)`
+  padding-left: 2rem;
 `;
 
-const Subtotal = styled.div`
+const Table = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 20px 10px 20px;
-  align-items: flex-start;
+  display: table;
+  border-collapse: collapse;
+  text-align: left;
 `;
 
-const SubtotalHeader = styled.p`
-  font-size: 1.5rem;
-  font-weight: 400;
-  letter-spacing: 0.005rem;
+const TableRow = styled.div`
+  display: table-row;
 `;
 
-const Price = styled.p`
-  font-size: 1.6rem;
-  font-weight: 500;
-  letter-spacing: 0.005rem;
+const TableLeft = styled.div`
+  display: table-cell;
+  width: 70%;
+  vertical-align: top;
+  border-right: 1px solid var(--border);
+  padding-left: 2rem;
 `;
 
-const ButtonWrapper = styled.div`
-  width: 100%;
-  padding: 0px 20px 0px 20px;
+const TableRight = styled.div`
+  display: table-cell;
+  width: 30%;
+  vertical-align: top;
+  border-left: 1px solid var(--border);
+  padding-right: 2rem;
 `;
 
 function Cart() {
-  const cart = useSelector((state) => state.cart.cart);
-  const [navHeight, setNavHeight] = useState(0);
-  const { data, isLoading, error } = useItems();
-  const navigate = useNavigate();
+  const { cart, isLoading: isLoadingCart, error: cartError } = useCart();
 
   return (
-    <CartLayout navHeight={navHeight}>
-      <Header>Cart</Header>
-      <HorizontalLine gap={2} />
-
+    <CartLayout>
       <Mobile>
         <CartItems />
       </Mobile>
 
       <Desktop>
-        <div
-          style={{
-            width: "90%",
-            margin: "0 auto",
-            textAlign: "left",
-            display: "table",
-            borderCollapse: "collapse",
-          }}
-        >
-          <div
-            style={{
-              display: "table-row",
-              borderBottom: "1px solid #E2E1E1",
-            }}
-          >
-            <div
-              style={{
-                display: "table-cell",
-                width: "70%",
-                borderRight: "2px solid #E2E1E1",
-                verticalAlign: "top",
-              }}
-            >
-              <CartText
-                style={{ borderBottom: "2px solid #E2E1E1", margin: 0 }}
-              >
-                Cart
-              </CartText>
-            </div>
-            <div
-              style={{
-                display: "table-cell",
-                width: "30%",
-                borderLeft: "2px solid #E2E1E1",
-                verticalAlign: "top",
-              }}
-            >
-              <CartSummaryText
-                style={{ borderBottom: "2px solid #E2E1E1", margin: 0 }}
-              >
-                cart summary
-              </CartSummaryText>
-            </div>
-          </div>
+        {cartError ? (
+          <ErrorMessage message={cartError.message} />
+        ) : !isLoadingCart && !cart?.data?.cart?.items?.length ? (
+          <EmptyCart />
+        ) : (
+          <Table>
+            <TableRow>
+              <TableLeft>
+                <CartHeader>Cart</CartHeader>
+              </TableLeft>
+              <TableRight>
+                <SummaryHeader>cart summary</SummaryHeader>
+              </TableRight>
+            </TableRow>
 
-          <div style={{ display: "table-row" }}>
-            <div
-              style={{
-                display: "table-cell",
-                width: "70%",
-                borderRight: "2px solid #E2E1E1",
-                verticalAlign: "top",
-              }}
-            >
-              <CartItems />
-            </div>
-            <div
-              style={{
-                display: "table-cell",
-                width: "30%",
-                borderLeft: "2px solid #E2E1E1",
-                verticalAlign: "top",
-              }}
-            >
-              <Desktop>
-                <Flex gap={2}>
-                  <Subtotal>
-                    <SubtotalHeader>Subtotal</SubtotalHeader>
-                    <Price>{formatCurrency(getTotalCartPrice(cart))}</Price>
-                  </Subtotal>
+            <TableRow>
+              <TableLeft>
+                <CartItems />
+              </TableLeft>
 
-                  <HorizontalLine />
-
-                  <ButtonWrapper>
-                    <Button
-                      full={true}
-                      disabled={!cart.length}
-                      onClick={() => navigate("/checkout")}
-                    >
-                      Checkout
-                    </Button>
-                  </ButtonWrapper>
-                </Flex>
-              </Desktop>
-            </div>
-          </div>
-        </div>
+              <TableRight>
+                <OrderSummary />
+              </TableRight>
+            </TableRow>
+          </Table>
+        )}
       </Desktop>
-
-      <Mobile>
-        <CartSummary />
-      </Mobile>
 
       <Mobile>
         <OrderSummary />
       </Mobile>
 
-      <Desktop>
-        <SavedItems />
-      </Desktop>
+      <SavedItems />
 
       <Desktop>
-        <Recommended data={data} isLoading={isLoading} error={error} />
+        <ItemsContainer heading="Top picks for you" limit={10} />
+        <HorizontalItemsContainer heading="trending" />
       </Desktop>
-
-      <ButtomNav setNavHeight={setNavHeight} />
     </CartLayout>
   );
 }
