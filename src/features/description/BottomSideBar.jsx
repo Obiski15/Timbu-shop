@@ -2,6 +2,7 @@ import { TbFileDescription } from "react-icons/tb";
 import { RiFeedbackLine } from "react-icons/ri";
 import { AiOutlineBars } from "react-icons/ai";
 import styled from "styled-components";
+import toast from "react-hot-toast";
 import PropTypes from "prop-types";
 
 import { useAddToCart } from "../../services/cart/useAddToCart";
@@ -160,6 +161,7 @@ function BottomSideBar({ image, name, price, id, activeSection }) {
           <Button
             full={true}
             onClick={() => {
+              if (!navigator.onLine) return toast.error("No Internet Access");
               addToCart(id);
             }}
           >

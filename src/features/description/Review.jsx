@@ -270,7 +270,7 @@ const Review = forwardRef(
                             <p>{review?.comment}</p>
                             <div style={{ textTransform: "capitalize" }}>
                               {formatDate(review?.createdAt)} by{" "}
-                              {review?.user?.firstName}
+                              {review?.user?.firstName || "User"}
                             </div>
                           </div>
                         ))}

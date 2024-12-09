@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { useCart } from "../../services/cart/useCart";
+import { useUser } from "../../services/user/useUser";
 import { formatCurrency } from "../../utils/helpers";
 
 import DummyOrderSummary from "../../ui/layouts/dummy/DummyOrderSummary";
@@ -63,6 +64,8 @@ const Total = styled(Fee)`
 
 function OrderSummary() {
   const { cart, isLoading } = useCart();
+  const { user, isLoadingUser } = useUser();
+
   const navigate = useNavigate();
 
   return (
@@ -104,7 +107,14 @@ function OrderSummary() {
             </Row>
           </Main>
 
-          <Button full={true} onClick={() => navigate("/checkout")}>
+          <Button
+            full={true}
+            onClick={() => {
+              if (isLoadingUser) return;
+              if (!user?.data) return navigate("/login");
+              navigate("/checkout");
+            }}
+          >
             checkout
           </Button>
         </>

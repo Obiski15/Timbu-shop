@@ -12,8 +12,9 @@ import Header from "../ui/components/Header";
 import { useDeleteFromWishlist } from "../services/wishlist/useDeleteFromWishlist";
 import { useAddToCart } from "../services/cart/useAddToCart";
 
-import ErrorMessage from "../ui/components/ErrorMessage";
+import UserSignInPrompt from "../features/profile/userSignInPrompt";
 import EmptyWishlist from "../features/wishlist/EmptyWishlist";
+import ErrorMessage from "../ui/components/ErrorMessage";
 
 const StyledWishlist = styled.div`
   min-height: 100vh;
@@ -92,7 +93,7 @@ function Wishlist() {
   const { deleteFromWishlist, isDeletingFromWishlist } =
     useDeleteFromWishlist();
   const { wishlist, isLoadingWishlist, error: wishlistError } = useWishlist();
-  const { addToCart, isAddingToCart } = useAddToCart();
+  const { addToCart } = useAddToCart();
 
   return (
     <StyledWishlist>
@@ -100,10 +101,12 @@ function Wishlist() {
       <Main>
         {isLoadingWishlist ? (
           <DummyWishlist />
-        ) : wishlistError ? (
-          <ErrorMessage message={wishlistError.message} />
+        ) : !wishlist?.data ? (
+          <UserSignInPrompt />
         ) : !wishlist?.data?.wishlist?.items?.length ? (
           <EmptyWishlist />
+        ) : wishlistError ? (
+          <ErrorMessage message={wishlistError.message} />
         ) : (
           wishlist?.data?.wishlist?.items?.map((item, i) => (
             <WishlistItem key={i + 1}>
@@ -132,7 +135,6 @@ function Wishlist() {
                   onClick={() => {
                     addToCart(item?._id);
                   }}
-                  disabled={isAddingToCart}
                 >
                   Buy Now
                 </Button>

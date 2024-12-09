@@ -47,12 +47,6 @@ const Details = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.2rem;
-
-  & > p:nth-of-type(2) {
-    font-size: 1.1rem;
-    font-weight: 400;
-    color: #bec0bf;
-  }
 `;
 
 const IconWrapper = styled.button`
@@ -98,6 +92,9 @@ const Price = styled.p`
 
 const Stock = styled.p`
   font-size: 1.2rem;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #bec0bf;
   color: ${(props) => props.color};
 `;
 
@@ -124,15 +121,15 @@ const CartItem = memo(function CartItem({ item }) {
         />
         <Details>
           <p>{item?.product?.name}</p>
-          <p>
-            {item?.product?.stock === 0 ? (
-              <Stock color="var(--destructive)">Out of stock</Stock>
-            ) : item?.product?.stock >= 100 ? (
-              <Stock color="#75757a">In stock</Stock>
-            ) : (
-              <Stock color="#af7d15">Few Units Left</Stock>
-            )}
-          </p>
+
+          {item?.product?.stock === 0 ? (
+            <Stock color="var(--destructive)">Out of stock</Stock>
+          ) : item?.product?.stock >= 100 ? (
+            <Stock color="#75757a">In stock</Stock>
+          ) : (
+            <Stock color="#af7d15">Few Units Left</Stock>
+          )}
+
           <IconWrapper
             disabled={isRemovingFromCArt}
             onClick={() => {

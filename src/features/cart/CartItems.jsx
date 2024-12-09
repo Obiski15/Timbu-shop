@@ -1,10 +1,10 @@
 import styled from "styled-components";
+import { memo } from "react";
 
 import { useCart } from "../../services/cart/useCart";
 
 import DummyCartItem from "../../ui/layouts/dummy/DummyCartItem";
 import CartItem from "./CartItem";
-import { memo } from "react";
 
 const Items = styled.div`
   width: 100%;
@@ -24,7 +24,7 @@ const CartItems = memo(function CartItems() {
       {isLoading
         ? Array.from({ length: 2 }, (_, i) => <DummyCartItem key={i + 1} />)
         : cart?.data?.cart?.items?.map((item) => (
-            <CartItem key={item._id} item={item} />
+            <CartItem key={item?._id} item={item} />
           ))}
     </Items>
   );

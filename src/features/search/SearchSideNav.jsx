@@ -108,8 +108,12 @@ const PriceRangeInputs = styled.div`
 
 const SearchSideNav = memo(function SearchSideNav() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [maxPriceRange, setMaxPriceRange] = useState(100);
-  const [minPriceRange, setMinPriceRange] = useState(10);
+  const [maxPriceRange, setMaxPriceRange] = useState(() => {
+    return searchParams.get("price")?.split("-")?.[1] || 100;
+  });
+  const [minPriceRange, setMinPriceRange] = useState(() => {
+    return searchParams.get("price")?.split("-")?.[0] || 10;
+  });
 
   const { data, isLoading, error } = useCategories();
 

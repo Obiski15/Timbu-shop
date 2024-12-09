@@ -6,7 +6,6 @@ import { useImageIntersection } from "../../hooks/useImageIntersection";
 import { formatCurrency } from "../../utils/helpers";
 
 import WishlistControl from "../../ui/components/WishlistControl";
-import AddtoCartButton from "../../ui/components/AddtoCartButton";
 
 const StyledItem = styled.div`
   position: relative;
@@ -75,7 +74,6 @@ const Discount = styled.p`
 `;
 
 const Item = memo(function Item({ item }) {
-  // const navigate = useNavigate();
   const { _id: id, name, photo: image, price, discount } = item;
   const { ref, isImageIntersecting } = useImageIntersection();
 
@@ -100,7 +98,6 @@ const Item = memo(function Item({ item }) {
         <ItemName>{name}</ItemName>
         <ItemPrice>{formatCurrency(price)}</ItemPrice>
         <Discount>{formatCurrency(discount)}</Discount>
-        {/* <AddtoCartButton id={id} /> */}
       </ItemDetails>
 
       <WishlistControlWrapper>

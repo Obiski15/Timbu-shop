@@ -54,6 +54,7 @@ const EmptyCartTextWrapper = styled.div`
 
 function EmptyCart() {
   const navigate = useNavigate();
+
   return (
     <EmptyCartWrapper>
       <Empty>

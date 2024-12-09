@@ -1,12 +1,11 @@
 import { IoCallOutline, IoShareSocialSharp } from "react-icons/io5";
 import { useEffect, useRef, useState } from "react";
-import { MdAddShoppingCart } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import { FcFlashAuto } from "react-icons/fc";
 import styled from "styled-components";
+import toast from "react-hot-toast";
 
 import { updateRecentlyViewedItems } from "../services/offline/recentlyviewed";
-import { useAddToCart } from "../services/cart/useAddToCart";
 import { useReview } from "../services/review/useReview";
 import { useItem } from "../services/item/useItem";
 import { useCart } from "../services/cart/useCart";
@@ -19,6 +18,7 @@ import ProductDetails from "../features/description/ProductDetails";
 import BottomSideBar from "../features/description/BottomSideBar";
 import DescriptionLayout from "../ui/layouts/DescriptionLayout";
 import WishlistControl from "../ui/components/WishlistControl";
+import AddtoCartButton from "../ui/components/AddtoCartButton";
 import FullPageSpinner from "../ui/components/FullPageSpinner";
 import TopSideBar from "../features/description/TopSideBar";
 import FullPageError from "../ui/components/FullPageError";
@@ -27,7 +27,6 @@ import Review from "../features/description/Review";
 import Skeleton from "../ui/components/Skeleton";
 import Ratings from "../ui/components/Ratings";
 import Spinner from "../ui/components/Spinner";
-import Button from "../ui/components/Button";
 
 const TopWrapper = styled.div`
   grid-column: 1 / -1;
@@ -231,20 +230,12 @@ const MiniImages = styled.div`
   & > img {
     width: 100px;
     height: 100px;
-
-    &:hover {
-      transform: scale(1.1);
-    }
   }
 
   @media only screen and (min-width: 768px) {
     & > img {
       width: 100%;
       height: 100%;
-
-      &:hover {
-        transform: scale(1);
-      }
     }
 
     position: absolute;
@@ -374,21 +365,6 @@ const MobileItemOverview = styled.div`
   padding-left: 2rem;
 `;
 
-const AddToCart = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-
-  & svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  & p {
-    flex: 1;
-  }
-`;
-
 function Description() {
   const [activeTab, setActiveTab] = useState("description-section");
   const [activeSection, setActiveSection] = useState("");
@@ -401,7 +377,6 @@ function Description() {
   const { data: productReview = {}, isLoading: isLoadingReview } = useReview(
     param.id
   );
-  const { addToCart, isAddingToCart } = useAddToCart();
   const {
     data = {},
     error: itemError,
@@ -511,7 +486,7 @@ function Description() {
               loading="lazy"
               src={item?.photo}
               alt="large-img"
-              onClick={() => {
+              onMouseEnter={() => {
                 handleImageChange(0);
               }}
               style={{
@@ -524,7 +499,7 @@ function Description() {
                 key={i + 1}
                 src={photo}
                 alt={photo}
-                onClick={() => {
+                onMouseEnter={() => {
                   handleImageChange(i + 1);
                 }}
                 style={{
@@ -585,34 +560,25 @@ function Description() {
 
             {isLoadingCart ? (
               <Spinner />
-            ) : cart?.data?.cart?.items?.find(
-                (item) => item?.product?._id === item?._id
-              ) ? (
-              <ItemQuantityControlWrapper>
-                <ItemQuantityControl id={item?._id} />
-                <p>
-                  {`${
-                    cart?.data?.cart?.items?.find(
-                      (item) => item?.product?._id === item?._id
-                    ).quantity
-                  } items(s) added`}
-                </p>
-              </ItemQuantityControlWrapper>
             ) : (
-              <Button
-                full={true}
-                onClick={() => addToCart(item?._id)}
-                disabled={isAddingToCart}
-              >
-                {isAddingToCart ? (
-                  <Spinner />
+              <>
+                {cart?.data?.cart?.items?.find(
+                  (itm) => itm?.product?._id === item?._id
+                ) ? (
+                  <ItemQuantityControlWrapper>
+                    <ItemQuantityControl id={item?._id} />
+                    <p>
+                      {`${
+                        cart?.data?.cart?.items?.find(
+                          (itm) => itm?.product?._id === item?._id
+                        ).quantity
+                      } items(s) added`}
+                    </p>
+                  </ItemQuantityControlWrapper>
                 ) : (
-                  <AddToCart>
-                    <MdAddShoppingCart />
-                    <p>add to cart</p>
-                  </AddToCart>
+                  <AddtoCartButton id={item?._id} />
                 )}
-              </Button>
+              </>
             )}
           </TopRightLower>
         </TopRight>
@@ -681,7 +647,25 @@ function Description() {
               </span>
             </div>
             <div>
-              <IoShareSocialSharp fill="var(--secondary-color)" />
+              <IoShareSocialSharp
+                fill="var(--secondary-color)"
+                onClick={async () => {
+                  if (!navigator.canShare({ text: window.location.href })) {
+                    return toast.error(
+                      "Your browser doesn't support the Web Share API!"
+                    );
+                  }
+
+                  try {
+                    await navigator.share({
+                      text: window.location.href,
+                      title: data?.data?.item?.name,
+                    });
+                  } catch (err) {
+                    toast.error(err.message);
+                  }
+                }}
+              />
               <WishlistControl id={param.id} />
             </div>
           </MobileRatingsOverview>
@@ -721,20 +705,7 @@ function Description() {
           <Call>
             <IoCallOutline color="var(--secondary-color)" />
           </Call>
-          <Button
-            full={true}
-            onClick={() => addToCart(item?._id)}
-            disabled={isAddingToCart}
-          >
-            {isAddingToCart ? (
-              <Spinner />
-            ) : (
-              <AddToCart>
-                <MdAddShoppingCart />
-                <p>add to cart</p>
-              </AddToCart>
-            )}
-          </Button>
+          <AddtoCartButton id={item?._id} />
         </CallAddToCart>
 
         <SavedItems />

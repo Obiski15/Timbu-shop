@@ -98,11 +98,9 @@ function CategoriesContainer() {
           ) : error ? (
             <ErrorMessage message={error.message} />
           ) : (
-            data?.data?.categories
-              .slice(0, 8)
-              .map((category, i) => (
-                <Category key={i + 1} category={category} index={i + 1} />
-              ))
+            data?.data?.categories.map((category, i) => (
+              <Category key={i + 1} category={category} index={i + 1} />
+            ))
           )}
         </Categories>
 

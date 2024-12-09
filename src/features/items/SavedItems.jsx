@@ -7,8 +7,9 @@ import { useWishlist } from "../../services/wishlist/useWishlist";
 import DummySectionHeader from "../../ui/layouts/dummy/DummySectionHeader";
 import SectionHeader from "../../ui/components/SectionHeader";
 import ErrorMessage from "../../ui/components/ErrorMessage";
+import UserSignInPrompt from "../profile/userSignInPrompt";
 import DummyItem from "../../ui/layouts/dummy/DummyItem";
-import NoResult from "../../ui/components/NoResult";
+import EmptyWishlist from "../wishlist/EmptyWishlist";
 import Item from "./Item";
 
 const StyledSavedItems = styled.div`
@@ -90,16 +91,18 @@ const SavedItems = memo(function SavedItems() {
             ))}
           </Container>
         </Wrapper>
+      ) : !wishlist?.data ? (
+        <UserSignInPrompt />
+      ) : !wishlist?.data?.wishlist?.items?.length ? (
+        <EmptyWishlist />
       ) : error ? (
         <ErrorMessage message={error.message} />
-      ) : !wishlist?.data?.wishlist?.items?.length ? (
-        <NoResult />
       ) : (
         <Wrapper style={{ position: "relative" }}>
           <FaArrowLeft fill="var(--border)" onClick={scrollLeft} />
           <Container ref={itemsContainerRef}>
             {wishlist?.data?.wishlist?.items?.map((item) => (
-              <Item item={item} key={item._id} />
+              <Item item={item} key={item?._id} />
             ))}
           </Container>
           <FaArrowRight fill="var(--border)" onClick={scrollRight} />

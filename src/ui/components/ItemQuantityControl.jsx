@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import toast from "react-hot-toast";
 import PropTypes from "prop-types";
 
 import { useRemoveItemFromCart } from "../../services/cart/useRemoveItemFromCart";
@@ -49,6 +50,7 @@ function ItemQuantityControl({ id }) {
         disabled={isAddingToCart || isRemovingItemFromCart}
         onClick={(e) => {
           e.stopPropagation();
+          if (!navigator.onLine) return toast.error("No Internet Access");
           removeItemFromCart(id);
         }}
       >
@@ -63,6 +65,7 @@ function ItemQuantityControl({ id }) {
         disabled={isAddingToCart || isRemovingItemFromCart}
         onClick={(e) => {
           e.stopPropagation();
+          if (!navigator.onLine) return toast.error("No Internet Access");
           addToCart(id);
         }}
       >

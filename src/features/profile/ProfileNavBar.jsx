@@ -7,6 +7,10 @@ import styled from "styled-components";
 import toast from "react-hot-toast";
 
 import { useLogout } from "../../services/auth/useLogout";
+import { useUser } from "../../services/user/useUser";
+
+import AlertDialog from "../../ui/components/AlertDialog";
+import useDeleteUser from "../../services/user/useDeleteUser";
 
 const StyledProfileNavBar = styled.main`
   display: flex;
@@ -90,7 +94,7 @@ const Row = styled.div`
   }
 `;
 
-const Logout = styled.button`
+const Action = styled.button`
   color: var(--secondary-color);
   padding: 2rem 1rem;
   width: fit-content;
@@ -123,54 +127,81 @@ const paths = [
 ];
 
 function ProfileNavBar() {
+  const { deleteUser, isDeletingUser } = useDeleteUser();
   const { logout, isLoggingOut } = useLogout();
+  const { user, isLoadingUser } = useUser();
   const urlPath = useLocation().pathname;
   const navigate = useNavigate();
 
   return (
-    <StyledProfileNavBar>
-      <div>
-        <SectionHeading>My Ruvid Store Account</SectionHeading>
-        <SectionBody>
-          {paths.map(({ value, Icon, nav }, i) => (
-            <Row
-              key={i + 1}
-              onClick={() => navigate(`/profile/${nav}`)}
-              style={{
-                backgroundColor: urlPath.endsWith(nav) ? "var(--border)" : "",
-              }}
-            >
-              <Icon />
-              <p>{value}</p>
+    <AlertDialog>
+      <StyledProfileNavBar>
+        <div>
+          <SectionHeading>My Ruvid Store Account</SectionHeading>
+          <SectionBody>
+            {paths.map(({ value, Icon, nav }, i) => (
+              <Row
+                key={i + 1}
+                onClick={() => navigate(`/profile/${nav}`)}
+                style={{
+                  backgroundColor: urlPath.endsWith(nav) ? "var(--border)" : "",
+                }}
+              >
+                <Icon />
+                <p>{value}</p>
+                <IoIosArrowForward />
+              </Row>
+            ))}
+          </SectionBody>
+        </div>
+
+        <div>
+          <SectionHeading>My Settings</SectionHeading>
+          <SectionBody>
+            <Row>
+              <p>Account Management</p>
               <IoIosArrowForward />
             </Row>
-          ))}
-        </SectionBody>
-      </div>
 
-      <div>
-        <SectionHeading>My Settings</SectionHeading>
-        <SectionBody>
-          <Row>
-            <p>Account Management</p>
-            <IoIosArrowForward />
-          </Row>
-          <Row>
-            <p>Close Account </p>
-            <IoIosArrowForward />
-          </Row>
-        </SectionBody>
-      </div>
-      <Logout
-        disabled={isLoggingOut}
-        onClick={() => {
-          toast.success("Logging out");
-          logout();
-        }}
-      >
-        Logout
-      </Logout>
-    </StyledProfileNavBar>
+            <AlertDialog.Open
+              modalName={!user?.data || isDeletingUser ? "" : "close-account"}
+            >
+              <Row>
+                <p>Close Account </p>
+                <IoIosArrowForward />
+              </Row>
+            </AlertDialog.Open>
+            <AlertDialog.Window
+              modalName="close-account"
+              buttonText="close account"
+              cb={deleteUser}
+            >
+              <p>Are you sure you want to delete your account?</p>
+            </AlertDialog.Window>
+          </SectionBody>
+        </div>
+        {!user?.data?.user && !isLoadingUser ? (
+          <Action
+            disabled={isLoadingUser}
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            Login
+          </Action>
+        ) : (
+          <Action
+            disabled={isLoggingOut || isLoadingUser}
+            onClick={() => {
+              toast.success("Logging out");
+              logout();
+            }}
+          >
+            Logout
+          </Action>
+        )}
+      </StyledProfileNavBar>
+    </AlertDialog>
   );
 }
 

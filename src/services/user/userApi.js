@@ -67,3 +67,16 @@ export async function updateUserAddress({
 
   return result;
 }
+
+export async function deleteUser() {
+  const res = await fetch(BASE_URL, {
+    method: "DELETE",
+    credentials: "include",
+  });
+
+  const result = await res.json();
+
+  if (!res.ok) throw result;
+
+  return result;
+}

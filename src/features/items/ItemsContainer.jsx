@@ -78,7 +78,7 @@ const ItemsContainer = memo(function ItemsContainer({
       ) : (
         <Container>
           {data?.data?.items?.map((item) => (
-            <Item item={item} key={item._id} />
+            <Item item={item} key={item?._id} />
           ))}
         </Container>
       )}

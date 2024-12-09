@@ -10,11 +10,11 @@ import GlobalStyles from "./styles/GlobalStyles";
 
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 const RecentlyViewed = lazy(() => import("./pages/RecentlyViewed"));
-const RecommededAll = lazy(() => import("./pages/RecommededAll"));
+const Description = lazy(() => import("./pages/ItemDescription"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword"));
+const RecommededAll = lazy(() => import("./pages/RecommededAll"));
 const CategoryPage = lazy(() => import("./pages/CategoryPage"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
-const Description = lazy(() => import("./pages/ItemDescription"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 const Wishlist = lazy(() => import("./pages/Wishlist"));
 const Homepage = lazy(() => import("./pages/Homepage"));

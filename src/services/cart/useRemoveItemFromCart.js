@@ -15,11 +15,9 @@ export function useRemoveItemFromCart() {
     mutationFn: removeItemFromCartAPI,
 
     onSuccess: () => {
-      setTimeout(() => {
-        queryClient.invalidateQueries({
-          queryKey: ["cart"],
-        });
-      }, 1000);
+      queryClient.invalidateQueries({
+        queryKey: ["cart"],
+      });
       toast.success("Item removed from cart");
     },
     onError: (error) => toast.error(error.message),

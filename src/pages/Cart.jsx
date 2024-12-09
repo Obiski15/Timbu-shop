@@ -107,15 +107,19 @@ function Cart() {
       </Desktop>
 
       <Mobile>
-        <OrderSummary />
+        {cartError ? (
+          <ErrorMessage message={cartError.message} />
+        ) : !isLoadingCart && !cart?.data?.cart?.items?.length ? (
+          <EmptyCart />
+        ) : (
+          <OrderSummary />
+        )}
       </Mobile>
 
       <SavedItems />
 
-      <Desktop>
-        <ItemsContainer heading="Top picks for you" limit={10} />
-        <HorizontalItemsContainer heading="trending" />
-      </Desktop>
+      <ItemsContainer heading="Top picks for you" limit={10} />
+      <HorizontalItemsContainer heading="trending" />
     </CartLayout>
   );
 }

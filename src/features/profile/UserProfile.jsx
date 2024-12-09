@@ -86,7 +86,7 @@ const tabs = [
 
 function UserProfile() {
   const { logout, isLoggingOut } = useLogout();
-  const { user, isLoadingUser, userError } = useUser();
+  const { user, isLoadingUser } = useUser();
   const navigate = useNavigate();
 
   return (
@@ -101,7 +101,7 @@ function UserProfile() {
             <Spinner />
           ) : (
             <span>
-              Welcome, {userError ? "User" : user?.data?.user?.firstName}
+              Welcome, {!user?.data ? "User" : user?.data?.user?.firstName}
             </span>
           )}
           <Dropdown.DropButton name="profile-dropdown">
@@ -122,7 +122,7 @@ function UserProfile() {
                   {value}
                 </Dropdown.Button>
               ))}
-              {!user && !isLoadingUser ? (
+              {!user?.data?.user && !isLoadingUser ? (
                 <Dropdown.Button
                   onClick={() => {
                     navigate("/login");

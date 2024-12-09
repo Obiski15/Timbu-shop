@@ -6,10 +6,11 @@ import { useUser } from "../services/user/useUser";
 
 import ProfilePagesLayout from "../ui/layouts/ProfilePagesLayout";
 import EditUserAddress from "../features/profile/EditUserAddress";
-import Modal from "../ui/components/Modal";
-import Icon from "../ui/components/Icon";
 import DummyAccount from "../ui/layouts/dummy/DummyAccount";
 import ErrorMessage from "../ui/components/ErrorMessage";
+import Modal from "../ui/components/Modal";
+import Icon from "../ui/components/Icon";
+import UserSignInPrompt from "../features/profile/userSignInPrompt";
 
 const Main = styled.div`
   display: grid;
@@ -87,8 +88,10 @@ function Account() {
     <ProfilePagesLayout>
       {isLoadingUser ? (
         <DummyAccount />
+      ) : !user?.data ? (
+        <UserSignInPrompt />
       ) : userError ? (
-        <ErrorMessage />
+        <ErrorMessage message={userError.message} />
       ) : (
         <>
           <Heading>Account overview</Heading>

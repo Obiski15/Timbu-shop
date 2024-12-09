@@ -96,9 +96,14 @@ function Modal({ children }) {
         .getElementById("modal")
         .firstChild.classList.remove("modal-fade-out");
     }, 190);
+
+    document.documentElement.style.overflow = "";
   }
 
-  const open = setIsOpen;
+  function open(val) {
+    setIsOpen(val);
+    document.documentElement.style.overflow = "hidden";
+  }
 
   return (
     <ModalContext.Provider value={{ isOpen, open, close }}>

@@ -39,8 +39,8 @@ function CartIcon() {
       <Quantity>
         <span>
           {cart?.data?.cart?.items
-            .map((item) => item.quantity)
-            .reduce((acc, qun) => acc + qun, 0) ?? 0}
+            ?.map((item) => item.quantity)
+            ?.reduce((acc, qun) => acc + qun, 0) ?? 0}
         </span>
       </Quantity>
     </IconWrapper>

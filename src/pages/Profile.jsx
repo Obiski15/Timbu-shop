@@ -44,7 +44,7 @@ const Email = styled.p`
 `;
 
 function Profile() {
-  const { user, isLoadingUser, userError } = useUser();
+  const { user, isLoadingUser } = useUser();
 
   return (
     <Wrapper>
@@ -57,7 +57,7 @@ function Profile() {
             <Spinner />
           ) : (
             <div>
-              {userError ? (
+              {!user?.data ? (
                 <>
                   <p>Welcome, User</p>
                   <p>******</p>

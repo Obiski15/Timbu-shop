@@ -21,6 +21,7 @@ export function useLogin() {
         queryKey: ["user"],
       });
       toast.success("Logged in");
+      queryClient.clear();
       navigate("/", { replace: true });
     },
     onError: (error) => toast.error(error.message),

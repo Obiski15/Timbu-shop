@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import { useOrder } from "../services/order/useOrder";
 
+import UserSignInPrompt from "../features/profile/userSignInPrompt";
 import ProfilePagesLayout from "../ui/layouts/ProfilePagesLayout";
 import DummyOrderItem from "../ui/layouts/dummy/DummyOrderItem";
 import ErrorMessage from "../ui/components/ErrorMessage";
@@ -9,6 +10,7 @@ import Pagination from "../ui/components/Pagination";
 import OrderItem from "../features/order/OrderItem";
 
 const OrdersWrapper = styled.div`
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -24,6 +26,8 @@ function Orders() {
       <OrdersWrapper>
         {isLoading ? (
           Array.from({ length: 2 }, (_, i) => <DummyOrderItem key={i + 1} />)
+        ) : !data?.data ? (
+          <UserSignInPrompt />
         ) : error ? (
           <ErrorMessage message={error.message} />
         ) : (

@@ -13,7 +13,7 @@ const StyledSpinner = styled.div`
   & > div {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 48%;
     transform: translate(-50%, -50%);
   }
 `;

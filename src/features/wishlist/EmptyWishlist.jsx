@@ -17,6 +17,7 @@ const Empty = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
+  padding: 4rem 0;
 `;
 
 const EmptyWishlistImage = styled.div`
@@ -65,7 +66,7 @@ function EmptyWishlist() {
         </EmptyWishlistImage>
 
         <EmptyWishlistTextWrapper>
-          <p>You haven&apos;t saved an item</p>
+          <p>You haven&apos;t saved any item</p>
           <p>
             Found something you like? Tap on the heart shaped icon next to the
             item to add it to your wishlist! All your saved items will appear

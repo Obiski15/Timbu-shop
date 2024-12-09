@@ -78,18 +78,25 @@ const DialogContext = createContext();
 function AlertDialog({ children }) {
   const [isOpen, setIsOpen] = useState("");
 
-  function close() {
-    document.getElementById("modal").firstChild.classList.add("modal-fade-out");
+  function close(e) {
+    e.stopPropagation();
+    document
+      .getElementById("dialog")
+      .firstChild.classList.add("modal-fade-out");
 
     setTimeout(() => {
       setIsOpen("");
       document
-        .getElementById("modal")
+        .getElementById("dialog")
         .firstChild.classList.remove("modal-fade-out");
+      document.documentElement.style.overflow = "auto";
     }, 190);
   }
 
-  const open = setIsOpen;
+  function open(val) {
+    document.documentElement.style.overflow = "hidden";
+    setIsOpen(val);
+  }
 
   return (
     <DialogContext.Provider value={{ isOpen, open, close }}>
@@ -102,8 +109,10 @@ function Open({ modalName, children }) {
   const { open, close, isOpen } = useContext(DialogContext);
 
   function handleOpenModal(e) {
+    if (!modalName) return;
+
     e.stopPropagation();
-    modalName !== isOpen ? open(modalName) : close();
+    modalName !== isOpen ? open(modalName) : close(e);
   }
 
   return cloneElement(children, { onClick: handleOpenModal });
@@ -116,23 +125,21 @@ function Window({ children, modalName, cb, buttonText }) {
 
   if (modalName === isOpen)
     return createPortal(
-      <StyledAlertDialog id="modal">
+      <StyledAlertDialog id="dialog">
         <Dialog>
           <StyledCloseModal>
             <MdClose onClick={close} />
           </StyledCloseModal>
 
           <Main>
-            <StyledWindow>
-              {cloneElement(children, { closeModal: close })}
-            </StyledWindow>
+            <StyledWindow>{children}</StyledWindow>
 
             <Button
               full={true}
               onClick={(e) => {
                 e.stopPropagation();
                 cb?.();
-                close();
+                close(e);
               }}
             >
               {buttonText}

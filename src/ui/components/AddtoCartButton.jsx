@@ -1,3 +1,6 @@
+import { MdAddShoppingCart } from "react-icons/md";
+import styled from "styled-components";
+import toast from "react-hot-toast";
 import PropTypes from "prop-types";
 
 import { useAddToCart } from "../../services/cart/useAddToCart";
@@ -5,6 +8,25 @@ import { useCart } from "../../services/cart/useCart";
 
 import ItemQuantityControl from "./ItemQuantityControl";
 import Button from "./Button";
+
+const Wrapper = styled.div`
+  width: 100%;
+
+  & button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  & svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  & p {
+    flex: 1;
+  }
+`;
 
 function AddtoCartButton({ id }) {
   const { addToCart, isAddingToCart } = useAddToCart();
@@ -19,17 +41,20 @@ function AddtoCartButton({ id }) {
       {currentItem ? (
         <ItemQuantityControl id={id} />
       ) : (
-        <Button
-          full={true}
-          disabled={isAddingToCart}
-          type="small"
-          onClick={(e) => {
-            e.stopPropagation();
-            addToCart(id);
-          }}
-        >
-          Add To Cart
-        </Button>
+        <Wrapper>
+          <Button
+            full={true}
+            disabled={isAddingToCart}
+            onClick={(e) => {
+              e.stopPropagation();
+              if (!navigator.onLine) return toast.error("No Internet Access");
+              addToCart(id);
+            }}
+          >
+            <MdAddShoppingCart />
+            <p>add to cart</p>
+          </Button>
+        </Wrapper>
       )}
     </>
   );

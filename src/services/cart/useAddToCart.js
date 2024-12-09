@@ -15,11 +15,9 @@ export function useAddToCart() {
     mutationFn: addToCartApi,
 
     onSuccess: () => {
-      setTimeout(() => {
-        queryClient.invalidateQueries({
-          queryKey: ["cart"],
-        });
-      }, 1000);
+      queryClient.invalidateQueries({
+        queryKey: ["cart"],
+      });
       toast.success("Item added to cart");
     },
     onError: () => toast.error("Item not added to cart"),

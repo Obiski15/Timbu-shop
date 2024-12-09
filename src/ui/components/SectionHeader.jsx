@@ -38,7 +38,7 @@ function SectionHeader({ children }) {
     <StyledSectionHeader>
       <p>{children}</p>
 
-      <Button onClick={() => navigate("/recommended")}>
+      <Button disabled onClick={() => navigate("/recommended")}>
         <span>view all</span>
         <MdKeyboardArrowRight />
       </Button>

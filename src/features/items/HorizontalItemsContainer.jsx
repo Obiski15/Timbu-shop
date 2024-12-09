@@ -1,7 +1,7 @@
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 import { memo, useRef } from "react";
+import PropTypes from "prop-types";
 
 import { useItems } from "../../services/item/useItems";
 
@@ -106,7 +106,7 @@ const HorizontalItemsContainer = memo(function HorizontalItemsContainer({
           <FaArrowLeft fill="white" onClick={scrollLeft} />
           <Container ref={itemsContainerRef}>
             {data?.data?.items?.map((item) => (
-              <Item item={item} key={item._id} />
+              <Item item={item} key={item?._id} />
             ))}
           </Container>
           <FaArrowRight fill="white" onClick={scrollRight} />

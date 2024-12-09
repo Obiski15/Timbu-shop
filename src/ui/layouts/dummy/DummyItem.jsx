@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import Skeleton from "../../components/Skeleton";
 
 const StyledDummyItem = styled.div`
@@ -9,6 +10,7 @@ const StyledDummyItem = styled.div`
   justify-content: space-between;
   gap: 1rem;
   width: 100%;
+  min-width: 120px;
 
   & > div {
     &:first-child {
