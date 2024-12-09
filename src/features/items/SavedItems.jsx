@@ -7,7 +7,7 @@ import { useWishlist } from "../../services/wishlist/useWishlist";
 import DummySectionHeader from "../../ui/layouts/dummy/DummySectionHeader";
 import SectionHeader from "../../ui/components/SectionHeader";
 import ErrorMessage from "../../ui/components/ErrorMessage";
-import UserSignInPrompt from "../profile/userSignInPrompt";
+import UserSignInPrompt from "../profile/UserSignInPrompt";
 import DummyItem from "../../ui/layouts/dummy/DummyItem";
 import EmptyWishlist from "../wishlist/EmptyWishlist";
 import Item from "./Item";

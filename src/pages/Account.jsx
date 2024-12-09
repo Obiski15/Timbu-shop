@@ -4,13 +4,13 @@ import { useRef } from "react";
 
 import { useUser } from "../services/user/useUser";
 
+import UserSignInPrompt from "../features/profile/UserSignInPrompt";
 import ProfilePagesLayout from "../ui/layouts/ProfilePagesLayout";
 import EditUserAddress from "../features/profile/EditUserAddress";
 import DummyAccount from "../ui/layouts/dummy/DummyAccount";
 import ErrorMessage from "../ui/components/ErrorMessage";
 import Modal from "../ui/components/Modal";
 import Icon from "../ui/components/Icon";
-import UserSignInPrompt from "../features/profile/userSignInPrompt";
 
 const Main = styled.div`
   display: grid;

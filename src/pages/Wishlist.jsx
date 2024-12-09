@@ -12,7 +12,7 @@ import Header from "../ui/components/Header";
 import { useDeleteFromWishlist } from "../services/wishlist/useDeleteFromWishlist";
 import { useAddToCart } from "../services/cart/useAddToCart";
 
-import UserSignInPrompt from "../features/profile/userSignInPrompt";
+import UserSignInPrompt from "../features/profile/UserSignInPrompt";
 import EmptyWishlist from "../features/wishlist/EmptyWishlist";
 import ErrorMessage from "../ui/components/ErrorMessage";
 

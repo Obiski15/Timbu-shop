@@ -1,5 +1,6 @@
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
+import { useNavigate } from "react-router-dom";
 
 import Button from "../../ui/components/Button";
 
@@ -24,7 +25,6 @@ const Prompt = styled.div`
 
 function UserSignInPrompt() {
   const navigate = useNavigate();
-
   return (
     <Wrapper>
       <Prompt>

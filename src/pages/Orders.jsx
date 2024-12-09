@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { useOrder } from "../services/order/useOrder";
 
-import UserSignInPrompt from "../features/profile/userSignInPrompt";
+import UserSignInPrompt from "../features/profile/UserSignInPrompt";
 import ProfilePagesLayout from "../ui/layouts/ProfilePagesLayout";
 import DummyOrderItem from "../ui/layouts/dummy/DummyOrderItem";
 import ErrorMessage from "../ui/components/ErrorMessage";
@@ -30,6 +30,8 @@ function Orders() {
           <UserSignInPrompt />
         ) : error ? (
           <ErrorMessage message={error.message} />
+        ) : !data?.data?.orders?.length ? (
+          "empty order"
         ) : (
           <>
             {data?.data?.orders?.map((order, i) => (
