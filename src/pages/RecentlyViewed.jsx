@@ -4,9 +4,9 @@ import styled from "styled-components";
 
 import { useRecentlyViewedItems } from "../services/offline/useRecentlyViewedItems";
 
+import NoRecentView from "../features/recentlyViewed/NoRecentView";
 import ProfilePagesLayout from "../ui/layouts/ProfilePagesLayout";
 import ErrorMessage from "../ui/components/ErrorMessage";
-import NoResult from "../ui/components/NoResult";
 import Item from "../features/items/Item";
 
 const Container = styled.div`
@@ -49,7 +49,7 @@ function RecentlyViewed() {
       {error ? (
         <ErrorMessage message={error.message} />
       ) : !data?.length ? (
-        <NoResult />
+        <NoRecentView />
       ) : (
         <Container>
           {isLoading

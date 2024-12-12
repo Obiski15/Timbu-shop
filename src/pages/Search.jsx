@@ -1,16 +1,19 @@
 import { useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { useSearch } from "../services/item/useSearch";
 
 import HorizontalItemsContainer from "../features/items/HorizontalItemsContainer";
 import AllItemsContainer from "../features/items/AllItemsContainer";
+import useSearchQuery from "../providers/search/useSearchQuery";
 import ItemsContainer from "../features/items/ItemsContainer";
 import PageLayout from "../ui/layouts/PageLayout";
 
 function Search() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const { searchQuery, setSearchQuery } = useSearchQuery();
   const [searchParams] = useSearchParams();
+
+  console.log(searchQuery);
 
   const {
     data,

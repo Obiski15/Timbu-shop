@@ -168,6 +168,7 @@ const ItemName = styled.p`
   padding-bottom: 0.4rem;
   padding-top: 0.8rem;
   letter-spacing: 0.1rem;
+  text-transform: capitalize;
 `;
 
 const ItemPrice = styled.div`

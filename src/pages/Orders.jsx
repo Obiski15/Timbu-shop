@@ -6,6 +6,7 @@ import UserSignInPrompt from "../features/profile/UserSignInPrompt";
 import ProfilePagesLayout from "../ui/layouts/ProfilePagesLayout";
 import DummyOrderItem from "../ui/layouts/dummy/DummyOrderItem";
 import ErrorMessage from "../ui/components/ErrorMessage";
+import EmptyOrder from "../features/order/EmptyOrder";
 import Pagination from "../ui/components/Pagination";
 import OrderItem from "../features/order/OrderItem";
 
@@ -31,7 +32,7 @@ function Orders() {
         ) : error ? (
           <ErrorMessage message={error.message} />
         ) : !data?.data?.orders?.length ? (
-          "empty order"
+          <EmptyOrder />
         ) : (
           <>
             {data?.data?.orders?.map((order, i) => (

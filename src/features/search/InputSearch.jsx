@@ -1,8 +1,8 @@
 import { TbAdjustmentsHorizontal, TbCameraSearch } from "react-icons/tb";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import { MdOutlineHistory } from "react-icons/md";
 import { FiArrowUpRight } from "react-icons/fi";
-import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import styled from "styled-components";
 
@@ -12,6 +12,7 @@ import { useSearchHints } from "../../services/item/useSearchHints";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 
 import Spinner from "../../ui/components/Spinner";
+import useSearchQuery from "../../providers/search/useSearchQuery";
 
 const InputWrapper = styled.form`
   width: 100%;
@@ -153,9 +154,11 @@ function InputSearch() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isHintsOpen, setIsHintsOpen] = useState(false);
   const [inputWidth, setInputWidth] = useState(0);
+  const { setSearchQuery } = useSearchQuery();
   const navigate = useNavigate();
+  const inputRef = useRef();
 
-  const inputRef = useOutsideClick(isHintsOpen, () => {
+  const inputContainerRef = useOutsideClick(isHintsOpen, () => {
     setIsHintsOpen(false);
   });
 
@@ -165,8 +168,8 @@ function InputSearch() {
   );
 
   useEffect(() => {
-    const current = inputRef.current;
-    setInputWidth(inputRef.current.clientWidth);
+    const current = inputContainerRef.current;
+    setInputWidth(inputContainerRef.current.clientWidth);
 
     window.addEventListener("resize", () => {
       setInputWidth(current.clientWidth);
@@ -176,13 +179,15 @@ function InputSearch() {
       window.addEventListener("resize", () => {
         setInputWidth(current.clientWidth);
       });
-  }, [inputRef]);
+  }, [inputContainerRef]);
 
   function handleSearch(query) {
     handleQueryUpdate(query);
     updateRecentlySearchedQuery(query);
     setIsHintsOpen(false);
+    setSearchQuery(query);
     navigate(`/search/?q=${query}`);
+    inputRef.current.blur();
   }
 
   function handleQueryUpdate(query) {
@@ -199,7 +204,7 @@ function InputSearch() {
         handleSearch(searchParams.get("q"));
       }}
     >
-      <StyledInput ref={inputRef}>
+      <StyledInput ref={inputContainerRef}>
         <CiSearch />
         <input
           type="text"
@@ -211,6 +216,7 @@ function InputSearch() {
             handleQueryUpdate(e.target.value);
           }}
           value={searchParams.get("q") ?? ""}
+          ref={inputRef}
         />
         <TbCameraSearch />
         <TbAdjustmentsHorizontal />

@@ -11,7 +11,7 @@ const Main = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 4rem 2rem;
 `;
 
 const Image = styled.div`

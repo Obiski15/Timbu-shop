@@ -4,6 +4,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import { lazy, Suspense } from "react";
 
+import SearchQueryProvider from "./providers/search/SearchQueryProvider";
 import FullPageSpinner from "./ui/components/FullPageSpinner";
 
 import GlobalStyles from "./styles/GlobalStyles";
@@ -186,19 +187,21 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <GlobalStyles />
-      <RouterProvider router={router} />
-      <Toaster
-        position="top-center"
-        reverseOrder={false}
-        gutter={8}
-        toastOptions={{
-          success: {
-            duration: 3000,
-          },
-        }}
-      />
+      <SearchQueryProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <GlobalStyles />
+        <RouterProvider router={router} />
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+          gutter={8}
+          toastOptions={{
+            success: {
+              duration: 3000,
+            },
+          }}
+        />
+      </SearchQueryProvider>
     </QueryClientProvider>
   );
 }

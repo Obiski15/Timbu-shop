@@ -81,17 +81,17 @@ const Address = styled.p`
 `;
 
 function Account() {
-  const userAddressRef = useRef(null);
   const { user, isLoadingUser, userError } = useUser();
+  const userAddressRef = useRef(null);
 
   return (
     <ProfilePagesLayout>
       {isLoadingUser ? (
         <DummyAccount />
-      ) : !user?.data ? (
-        <UserSignInPrompt />
       ) : userError ? (
         <ErrorMessage message={userError.message} />
+      ) : !user?.data ? (
+        <UserSignInPrompt />
       ) : (
         <>
           <Heading>Account overview</Heading>

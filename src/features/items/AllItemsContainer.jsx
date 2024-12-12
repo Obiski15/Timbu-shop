@@ -2,6 +2,7 @@ import { memo, useEffect, useMemo, useRef } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
+import useSearchQuery from "../../providers/search/useSearchQuery";
 import ErrorMessage from "../../ui/components/ErrorMessage";
 import DummyItem from "../../ui/layouts/dummy/DummyItem";
 import NoResult from "../../ui/components/NoResult";
@@ -92,6 +93,7 @@ const AllItemsContainer = memo(function AllItemsContainer({
   isFetchNextPageError,
 }) {
   const indicatorRef = useRef(null);
+  const { searchQuery } = useSearchQuery();
 
   useEffect(() => {
     if (isLoading || error) return;
@@ -140,7 +142,7 @@ const AllItemsContainer = memo(function AllItemsContainer({
           </Container>
         ) : error ? (
           <ErrorMessage message={error.message} />
-        ) : isFetched && !data?.length ? (
+        ) : (isFetched && !data?.length) || !searchQuery ? (
           <NoResult />
         ) : (
           <Container>
