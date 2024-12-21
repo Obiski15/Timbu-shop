@@ -2,13 +2,13 @@ import { memo, useEffect, useMemo, useRef } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import useSearchQuery from "../../providers/search/useSearchQuery";
+import { useSearchQuery } from "../../providers/search/useSearchQuery";
 import ErrorMessage from "../../ui/components/ErrorMessage";
+import SearchFilter from "../../ui/components/SearchFilter";
 import DummyItem from "../../ui/layouts/dummy/DummyItem";
 import NoResult from "../../ui/components/NoResult";
 import SearchSideNav from "../search/SearchSideNav";
 import Spinner from "../../ui/components/Spinner";
-import SortBy from "../../ui/components/SortBy";
 import Item from "./Item";
 
 const StyledAllItemsContainer = styled.div`
@@ -132,7 +132,7 @@ const AllItemsContainer = memo(function AllItemsContainer({
 
       <Wrapper>
         <SortByWrapper>
-          <SortBy />
+          <SearchFilter />
         </SortByWrapper>
         {isLoading ? (
           <Container>

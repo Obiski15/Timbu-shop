@@ -1,11 +1,12 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import { object, string } from "yup";
 import { useState } from "react";
 
 import { useForgotPassword } from "../services/auth/useForgotPassword";
 
 import AuthLayout from "../ui/layouts/AuthLayout";
-import Spinner from "../ui/components/Spinner";
 import Button from "../ui/components/Button";
 import Input from "../ui/components/Input";
 
@@ -30,15 +31,26 @@ const ButtonWrapper = styled.div`
 `;
 
 function ForgotPassword() {
-  const [isActive, setIsActive] = useState("");
   const { forgotPassword, isLoading } = useForgotPassword();
+  const [isActive, setIsActive] = useState("");
+
+  const schema = object({
+    email: string()
+      .matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$", {
+        message: "Kindly provide a valid email address",
+      })
+      .lowercase()
+      .required("Kindly your email address"),
+  });
 
   const {
     register,
     formState: { errors },
     reset,
     handleSubmit,
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   function handleActiveInput(field) {
     setIsActive(field);
@@ -56,13 +68,10 @@ function ForgotPassword() {
         <Input
           id="email"
           name="email"
+          type="email"
           placeholder="Enter email address"
           register={{
             ...register("email", {
-              required: {
-                value: true,
-                message: "field is required",
-              },
               onBlur: () => {
                 handleActiveInput("");
               },
@@ -78,13 +87,9 @@ function ForgotPassword() {
         />
 
         <ButtonWrapper>
-          {!isLoading ? (
-            <Button type="small" disabled={isLoading}>
-              confirm
-            </Button>
-          ) : (
-            <Spinner />
-          )}
+          <Button type="small" disabled={isLoading}>
+            {!isLoading ? "Loading..." : "confirm"}
+          </Button>
         </ButtonWrapper>
       </Form>
     </AuthLayout>

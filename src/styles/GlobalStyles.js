@@ -2,9 +2,9 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
   :root {
-    --background-color: #ECF5F2;
+    --background: #ECF5F2;
     --secondary-color: #FF7E08; 
-    --primary-color: #045B3B;
+    --success: #045B3B;
     --text-color: #00140D;
     --border: #d4d4d6;
     --modal-background :#fbf8f8ff;
@@ -32,7 +32,7 @@ const GlobalStyles = createGlobalStyle`
     font-family: "Poppins", sans-serif;
     font-style: normal;
     overflow-wrap: break-word;
-    background-color: var(--background-color);
+    background-color: var(--background);
     color: var(--text-color);
     line-height: 1.8rem;
     font-size: 1.4rem ;
@@ -86,6 +86,10 @@ const GlobalStyles = createGlobalStyle`
 
   .modal-fade-out {
     animation: fadeOut 0.2s ease-out;
+  }
+
+  .StripeElement {
+    width: 100%;
   }
   `;
 

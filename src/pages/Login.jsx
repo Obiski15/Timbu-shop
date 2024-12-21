@@ -1,12 +1,13 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { object, string } from "yup";
 import { useState } from "react";
 
 import { useLogin } from "../services/auth/useLogin";
 
 import AuthLayout from "../ui/layouts/AuthLayout";
-import Spinner from "../ui/components/Spinner";
 import Button from "../ui/components/Button";
 import Input from "../ui/components/Input";
 
@@ -35,11 +36,25 @@ function Login() {
   const [isActive, setIsActive] = useState("");
   const { login, isLoggingIn } = useLogin();
 
+  const schema = object({
+    email: string()
+      .matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$", {
+        message: "Kindly provide a valid email address",
+      })
+      .lowercase()
+      .required("Email field is required"),
+    password: string()
+      .min(8, "Minimum password length is 8")
+      .required("Password field is required"),
+  });
+
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   function handleActiveInput(field) {
     setIsActive(field);
@@ -55,13 +70,10 @@ function Login() {
         <Input
           id="email"
           name="email"
+          type="email"
           placeholder="e.g. obiski15@gmail.com"
           register={{
             ...register("email", {
-              required: {
-                value: true,
-                message: "field is required",
-              },
               onBlur: () => {
                 handleActiveInput("");
               },
@@ -82,14 +94,6 @@ function Login() {
           placeholder="Enter password"
           register={{
             ...register("password", {
-              required: {
-                value: true,
-                message: "field is required",
-              },
-              minLength: {
-                value: 8,
-                message: "minimum required length is 8",
-              },
               onBlur: () => {
                 handleActiveInput("");
               },
@@ -105,13 +109,9 @@ function Login() {
         />
 
         <ButtonWrapper>
-          {!isLoggingIn ? (
-            <Button type="small" disabled={isLoggingIn}>
-              Login
-            </Button>
-          ) : (
-            <Spinner />
-          )}
+          <Button type="small" disabled={isLoggingIn}>
+            {!isLoggingIn ? "Login" : "Logging in..."}
+          </Button>
         </ButtonWrapper>
 
         <AccountConfirmation>

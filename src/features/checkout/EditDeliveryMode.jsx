@@ -1,10 +1,12 @@
 import { TbTruckDelivery } from "react-icons/tb";
-import { forwardRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import { forwardRef } from "react";
 
+import { useDeliveryContext } from "../../providers/delivery/useDeliveryContext";
+import { formatCurrency, formatShortDate } from "../../utils/helpers";
 import { useCart } from "../../services/cart/useCart";
-import { formatCurrency } from "../../utils/helpers";
+import { useModal } from "../../hooks/useModal";
 
 import ErrorMessage from "../../ui/components/ErrorMessage";
 import Spinner from "../../ui/components/Spinner";
@@ -63,7 +65,7 @@ const Shipment = styled.div`
   gap: 0.5rem;
 `;
 
-const ShipmentHeader = styled.p`
+const ShipmentHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -118,9 +120,9 @@ const ItemDetails = styled.div`
   font-size: 1.2rem;
 `;
 
-const EditDeliveryMode = forwardRef((props, ref) => {
-  const { closeModal } = { ...props };
-  const [deliveryMode, setDeliveryMode] = useState("door delivery");
+const EditDeliveryMode = forwardRef((_, ref) => {
+  const { closeModal } = useModal();
+  const { deliveryMode, setDeliveryMode } = useDeliveryContext();
 
   const { cart, isLoading, error } = useCart();
   const { register, handleSubmit } = useForm({
@@ -148,10 +150,13 @@ const EditDeliveryMode = forwardRef((props, ref) => {
           />
           <Details>
             <DeliveryMode>
-              <span>Door delivery</span> {`(from ${formatCurrency(22)})`}
+              <span>Door delivery</span> {`(from ${formatCurrency(1)})`}
             </DeliveryMode>
             <DeliveryTimeline>
-              Delivery between <span>{3}</span> and <span>{5}</span>
+              Delivery Between {formatShortDate(new Date())} and{" "}
+              {formatShortDate(
+                new Date(new Date().getTime() + 24 * 3 * 60 * 60 * 1000)
+              )}
             </DeliveryTimeline>
           </Details>
         </LeftContainer>
@@ -179,9 +184,7 @@ const EditDeliveryMode = forwardRef((props, ref) => {
           <DeliveryMode>
             <span>Door delivery</span>
           </DeliveryMode>
-          <DeliveryTimeline>
-            Delivery between <span>{3}</span> and <span>{5}</span>
-          </DeliveryTimeline>
+          <DeliveryTimeline>Delivery between 3-5 working days</DeliveryTimeline>
 
           <Items>
             {isLoading ? (

@@ -4,8 +4,6 @@ import { MdClose } from "react-icons/md";
 import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 
-import { useOutsideClick } from "../../hooks/useOutsideClick";
-
 import Button from "./Button";
 
 const StyledModalWrapper = styled.div`
@@ -82,7 +80,7 @@ const StyledActionButtons = styled.div`
   }
 `;
 
-const ModalContext = createContext();
+export const ModalContext = createContext();
 
 function Modal({ children }) {
   const [isOpen, setIsOpen] = useState("");
@@ -125,17 +123,17 @@ function Open({ modalName, children }) {
 
 function Window({ children, modalName, cb }) {
   const { isOpen, close } = useContext(ModalContext);
-  const ref = useOutsideClick(isOpen, close, true);
 
   if (!modalName) return;
 
   if (modalName === isOpen)
     return createPortal(
       <StyledModalWrapper id="modal">
-        <StyledModal ref={ref}>
+        <StyledModal>
           <StyledCloseModal>
             <MdClose onClick={close} />
           </StyledCloseModal>
+
           <StyledWindow>
             {cloneElement(children, { closeModal: close })}
           </StyledWindow>

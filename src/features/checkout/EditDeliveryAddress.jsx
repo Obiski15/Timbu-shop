@@ -1,12 +1,15 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { forwardRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import { object, string } from "yup";
+import toast from "react-hot-toast";
 
 import { useUpdateShippingAddress } from "../../services/user/useUpdateShippingAddress";
 import { useUser } from "../../services/user/useUser";
+import { useModal } from "../../hooks/useModal";
 
 import Input from "../../ui/components/Input";
-import toast from "react-hot-toast";
 
 const StyledEditDeliveryAddress = styled.form`
   display: flex;
@@ -15,18 +18,50 @@ const StyledEditDeliveryAddress = styled.form`
   gap: 1rem;
 `;
 
-const EditDeliveryAddress = forwardRef((props, ref) => {
-  const { closeModal } = { ...props };
+const EditDeliveryAddress = forwardRef((_, ref) => {
+  const { closeModal } = useModal();
   const { updateUserShippingAddress, isUpdatingAddress } =
     useUpdateShippingAddress();
-  const { user } = useUser();
   const [isActive, setIsActive] = useState("");
+  const { user } = useUser();
+
+  const schema = object({
+    shippingAddress: object({
+      country: string()
+        .lowercase()
+        .trim()
+        .required("kindly provide a country name"),
+      region: string()
+        .lowercase()
+        .trim()
+        .required("kindly provide a state/region name"),
+      city: string()
+        .lowercase()
+        .trim()
+        .required("kindly provide your city name"),
+      address: string()
+        .lowercase()
+        .trim()
+        .required("kindly provide your house address"),
+      postalCode: string()
+        .trim()
+        .min(4, "Minimum length is 4")
+        .max(6, "Maximum length is 6")
+        .required("kindly provide a valid postal code"),
+      additionalInfo: string()
+        .lowercase()
+        .trim()
+        .max(100, "Maximum length is 100 characters")
+        .nullable(),
+    }),
+  });
 
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm({
+    resolver: yupResolver(schema),
     defaultValues: {
       shippingAddress: { ...user?.data?.user?.shippingAddress },
     },
@@ -52,7 +87,7 @@ const EditDeliveryAddress = forwardRef((props, ref) => {
   }
 
   return (
-    <StyledEditDeliveryAddress onSubmit={handleSubmit(onSubmit)} {...props}>
+    <StyledEditDeliveryAddress onSubmit={handleSubmit(onSubmit)}>
       <Input
         required={true}
         type="text"
@@ -61,10 +96,6 @@ const EditDeliveryAddress = forwardRef((props, ref) => {
         placeholder="e.g 25, Micheal Ayorinde Street"
         register={{
           ...register("shippingAddress.address", {
-            required: {
-              value: true,
-              message: "field is required",
-            },
             onBlur: () => {
               handleActiveInput("");
             },
@@ -84,10 +115,6 @@ const EditDeliveryAddress = forwardRef((props, ref) => {
         placeholder="Input Country"
         register={{
           ...register("shippingAddress.country", {
-            required: {
-              value: true,
-              message: "field is required",
-            },
             onBlur: () => {
               handleActiveInput("");
             },
@@ -107,10 +134,6 @@ const EditDeliveryAddress = forwardRef((props, ref) => {
         placeholder="Input Region"
         register={{
           ...register("shippingAddress.region", {
-            required: {
-              value: true,
-              message: "field is required",
-            },
             onBlur: () => {
               handleActiveInput("");
             },
@@ -130,10 +153,6 @@ const EditDeliveryAddress = forwardRef((props, ref) => {
         placeholder="City"
         register={{
           ...register("shippingAddress.city", {
-            required: {
-              value: true,
-              message: "field is required",
-            },
             onBlur: () => {
               handleActiveInput("");
             },
@@ -154,10 +173,6 @@ const EditDeliveryAddress = forwardRef((props, ref) => {
         placeholder="e.g 110027"
         register={{
           ...register("shippingAddress.postalCode", {
-            required: {
-              value: true,
-              message: "field is required",
-            },
             onBlur: () => {
               handleActiveInput("");
             },

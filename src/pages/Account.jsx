@@ -122,7 +122,7 @@ function Account() {
 
                   <Modal.Window
                     modalName="edit-user-address"
-                    handler={() => userAddressRef.current.click()}
+                    cb={() => userAddressRef.current.click()}
                   >
                     <EditUserAddress ref={userAddressRef} />
                   </Modal.Window>

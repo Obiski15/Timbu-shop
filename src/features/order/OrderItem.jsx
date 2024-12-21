@@ -2,6 +2,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 import { useImageIntersection } from "../../hooks/useImageIntersection";
+import { formatLongDate } from "../../utils/helpers";
 
 const StyledOrderItem = styled.div`
   width: 100%;
@@ -47,6 +48,11 @@ const Name = styled.p`
   word-spacing: 0.1rem;
 `;
 
+const Quantity = styled.span`
+  text-transform: lowercase;
+  font-weight: normal;
+`;
+
 const Id = styled.p`
   color: #75757a;
   font-size: 1.2rem;
@@ -66,7 +72,7 @@ const Status = styled.p`
       ? "#75757a"
       : props.status === "processing"
       ? "#d2d242"
-      : ""};
+      : "var(--secondary-color)"};
 `;
 
 const OrderDate = styled.p`
@@ -87,12 +93,16 @@ function OrderItem({ order }) {
       </Image>
       <MainWrapper>
         <NameIdWrapper>
-          <Name>{order?.name}</Name>
+          <Name>
+            {order?.name} <Quantity>x{order?.quantity}</Quantity>
+          </Name>
           <Id>order id: {order?._id}</Id>
         </NameIdWrapper>
         <StatusDatewrapper>
           <Status status={order?.status}>{order?.status}</Status>
-          <OrderDate>on {new Date().getDate()}</OrderDate>
+          <OrderDate>
+            on {`${formatLongDate(new Date(order?.updatedAt))}`}
+          </OrderDate>
         </StatusDatewrapper>
       </MainWrapper>
     </StyledOrderItem>

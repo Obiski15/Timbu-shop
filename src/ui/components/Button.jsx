@@ -27,6 +27,11 @@ const StyledButton = styled.button`
           color: var(--secondary-color);
           border: 1px solid var(--secondary-color);
         `;
+      case "success":
+        return css`
+          background-color: var(--success);
+          color: white;
+        `;
       default:
         return css`
           background-color: var(--secondary-color);

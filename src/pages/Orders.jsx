@@ -7,14 +7,14 @@ import ProfilePagesLayout from "../ui/layouts/ProfilePagesLayout";
 import DummyOrderItem from "../ui/layouts/dummy/DummyOrderItem";
 import ErrorMessage from "../ui/components/ErrorMessage";
 import EmptyOrder from "../features/order/EmptyOrder";
-import Pagination from "../ui/components/Pagination";
+// import Pagination from "../ui/components/Pagination";
 import OrderItem from "../features/order/OrderItem";
 
 const OrdersWrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 1rem;
 `;
@@ -38,7 +38,7 @@ function Orders() {
             {data?.data?.orders?.map((order, i) => (
               <OrderItem key={i + 1} order={order} />
             ))}
-            <Pagination />
+            {/* <Pagination /> */}
           </>
         )}
       </OrdersWrapper>

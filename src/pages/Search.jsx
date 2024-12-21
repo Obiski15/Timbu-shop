@@ -1,11 +1,11 @@
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 
+import { useSearchQuery } from "../providers/search/useSearchQuery";
 import { useSearch } from "../services/item/useSearch";
 
 import HorizontalItemsContainer from "../features/items/HorizontalItemsContainer";
 import AllItemsContainer from "../features/items/AllItemsContainer";
-import useSearchQuery from "../providers/search/useSearchQuery";
 import ItemsContainer from "../features/items/ItemsContainer";
 import PageLayout from "../ui/layouts/PageLayout";
 

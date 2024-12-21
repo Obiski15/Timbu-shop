@@ -1,4 +1,6 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
+import { number, object, ref, string } from "yup";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useState } from "react";
@@ -110,11 +112,71 @@ function Signup() {
   const { signup, isSigningUp } = useSignup();
   const navigate = useNavigate();
 
+  const schema = object({
+    email: string()
+      .matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$", {
+        message: "Kindly provide a valid email address",
+      })
+      .lowercase()
+      .trim()
+      .required("Email field is required"),
+    firstName: string()
+      .lowercase()
+      .trim()
+      .required("kindly provide your first name"),
+    lastName: string()
+      .lowercase()
+      .trim()
+      .required("kindly provide your last name"),
+    userAddress: object({
+      country: string()
+        .lowercase()
+        .trim()
+        .required("kindly provide a country name"),
+      region: string()
+        .lowercase()
+        .trim()
+        .required("kindly provide a state/region name"),
+      city: string()
+        .lowercase()
+        .trim()
+        .required("kindly provide your city name"),
+      address: string()
+        .lowercase()
+        .trim()
+        .required("kindly provide your house address"),
+    }),
+    tel: number()
+      .typeError("Telephone value must be a number ")
+      .positive()
+      .integer()
+      .test(
+        "minLen",
+        "Minimum telephone length is 10",
+        (val) => !(val.toString().length < 10)
+      )
+      .test(
+        "maxLen",
+        "Maximum telephone length is 11",
+        (val) => !(val.toString().length > 11)
+      )
+      .required("A valid telephone number is required"),
+    password: string()
+      .min(8, "Minimum password length is 8")
+      .required("Password field is required"),
+    confirmPassword: string()
+      .min(8, "Minimum password length is 8")
+      .oneOf([ref("password")], "Passwords must match")
+      .required("Kindly confirm your password"),
+  });
+
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   function handleActiveInput(field) {
     setIsActive(field);
@@ -172,10 +234,6 @@ function Signup() {
               placeholder="e.g. obiski15@gmail.com"
               register={{
                 ...register("email", {
-                  required: {
-                    value: true,
-                    message: "field is required",
-                  },
                   onBlur: () => {
                     handleActiveInput("");
                   },
@@ -196,10 +254,6 @@ function Signup() {
               placeholder="e.g obiski"
               register={{
                 ...register("firstName", {
-                  required: {
-                    value: true,
-                    message: "field is required",
-                  },
                   onBlur: () => {
                     handleActiveInput("");
                   },
@@ -220,10 +274,6 @@ function Signup() {
               placeholder="e.g obiski"
               register={{
                 ...register("lastName", {
-                  required: {
-                    value: true,
-                    message: "field is required",
-                  },
                   onBlur: () => {
                     handleActiveInput("");
                   },
@@ -248,10 +298,6 @@ function Signup() {
               placeholder="Enter Country"
               register={{
                 ...register("userAddress.country", {
-                  required: {
-                    value: true,
-                    message: "field is required",
-                  },
                   onBlur: () => {
                     handleActiveInput("");
                   },
@@ -272,10 +318,6 @@ function Signup() {
                 placeholder="Enter Region"
                 register={{
                   ...register("userAddress.region", {
-                    required: {
-                      value: true,
-                      message: "field is required",
-                    },
                     onBlur: () => {
                       handleActiveInput("");
                     },
@@ -296,10 +338,6 @@ function Signup() {
                 placeholder="e.g obiski"
                 register={{
                   ...register("userAddress.city", {
-                    required: {
-                      value: true,
-                      message: "field is required",
-                    },
                     onBlur: () => {
                       handleActiveInput("");
                     },
@@ -322,10 +360,6 @@ function Signup() {
               placeholder="e.g obiski"
               register={{
                 ...register("userAddress.address", {
-                  required: {
-                    value: true,
-                    message: "field is required",
-                  },
                   onBlur: () => {
                     handleActiveInput("");
                   },
@@ -348,13 +382,9 @@ function Signup() {
               id="tel"
               type="number"
               name="tel"
-              placeholder="e.g obiski"
+              placeholder="e.g 9056420820"
               register={{
                 ...register("tel", {
-                  required: {
-                    value: true,
-                    message: "field is required",
-                  },
                   onBlur: () => {
                     handleActiveInput("");
                   },
@@ -376,14 +406,6 @@ function Signup() {
               placeholder="Enter password"
               register={{
                 ...register("password", {
-                  required: {
-                    value: true,
-                    message: "field is required",
-                  },
-                  minLength: {
-                    value: 8,
-                    message: "minimum required length is 8",
-                  },
                   onBlur: () => {
                     handleActiveInput("");
                   },
@@ -404,16 +426,6 @@ function Signup() {
               placeholder="Confirm password"
               register={{
                 ...register("confirmPassword", {
-                  required: {
-                    value: true,
-                    message: "field is required",
-                  },
-                  minLength: {
-                    value: 8,
-                    message: "minimum required length is 8",
-                  },
-                  validate: (val, formValues) =>
-                    val === formValues.password || "password doesn't match",
                   onBlur: () => {
                     handleActiveInput("");
                   },

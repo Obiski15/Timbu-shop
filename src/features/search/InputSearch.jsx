@@ -6,13 +6,14 @@ import { FiArrowUpRight } from "react-icons/fi";
 import { CiSearch } from "react-icons/ci";
 import styled from "styled-components";
 
-import { useRecentlySearchedQuery } from "../../services/offline/useRecentlySearchedQuery";
-import { updateRecentlySearchedQuery } from "../../services/offline/recentlySearched";
+import { useRecentlySearchedQuery } from "../../services/history/useRecentlySearchedQuery";
+import { updateRecentlySearchedQuery } from "../../services/history/recentlySearched";
+import { useSearchQuery } from "../../providers/search/useSearchQuery";
 import { useSearchHints } from "../../services/item/useSearchHints";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 
+import NoRecentSearch from "../history/recentSearch/NoRecentSearch";
 import Spinner from "../../ui/components/Spinner";
-import useSearchQuery from "../../providers/search/useSearchQuery";
 
 const InputWrapper = styled.form`
   width: 100%;
@@ -87,34 +88,6 @@ const RecentSearch = styled.div`
 
   &:hover {
     background-color: var(--border);
-  }
-`;
-
-const NoHistory = styled.div`
-  height: 100%;
-  font-weight: 500;
-  text-transform: capitalize;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  & > div {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-  }
-`;
-
-const NoHistoryImage = styled.div`
-  width: 50px;
-  height: 50px;
-
-  & > img {
-    width: 100%;
-    height: 100%;
   }
 `;
 
@@ -229,15 +202,7 @@ function InputSearch() {
           {!searchParams.get("q") ? (
             <>
               {!recentlySearchedItems?.length ? (
-                <NoHistory>
-                  <div>
-                    <p>No search history recorded</p>
-
-                    <NoHistoryImage>
-                      <img src="/images/history.png" alt="history" />
-                    </NoHistoryImage>
-                  </div>
-                </NoHistory>
+                <NoRecentSearch />
               ) : (
                 recentlySearchedItems.map((recentItem, i) => (
                   <RecentSearch

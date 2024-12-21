@@ -1,18 +1,19 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useEffect } from "react";
 
 import { useCart } from "../services/cart/useCart";
 import { useUser } from "../services/user/useUser";
-import { useNavigate } from "react-router-dom";
 
+import EmptyCartCheckout from "../features/checkout/EmptyCartCheckout";
 import DeliveryDetails from "../features/checkout/DeliveryDetails";
+import FullPageSpinner from "../ui/components/FullPageSpinner";
 import CheckoutLayout from "../ui/layouts/CheckoutLayout";
 import ErrorMessage from "../ui/components/ErrorMessage";
 import CartSummary from "../features/cart/CartSummary";
 import EmptyCart from "../features/cart/EmptyCart";
 import CartItems from "../features/cart/CartItems";
-import Spinner from "../ui/components/Spinner";
-import Card from "../features/checkout/Card";
+import Pay from "../features/checkout/Pay";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -51,10 +52,10 @@ function Checkout() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user?.data) navigate("/login");
-  }, [user, navigate]);
+    if (!user?.data && !isLoadingUser) navigate("/login");
+  }, [user, navigate, isLoadingUser]);
 
-  if (!user?.data || isLoadingUser) return <Spinner />;
+  if (!user?.data || isLoadingUser) return <FullPageSpinner />;
 
   return (
     <CheckoutLayout>
@@ -77,12 +78,12 @@ function Checkout() {
         {!isLoadingCart && cartError ? (
           <ErrorMessage message={cartError.message} />
         ) : !isLoadingCart && !cart?.data?.cart?.items?.length ? (
-          <EmptyCart />
+          <EmptyCartCheckout />
         ) : (
           <>
             <CartSummary />
 
-            <Card />
+            <Pay />
           </>
         )}
       </Wrapper>

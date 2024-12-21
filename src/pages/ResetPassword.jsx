@@ -1,12 +1,13 @@
 import { useNavigate, useParams } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { object, ref, string } from "yup";
 import styled from "styled-components";
 import { useState } from "react";
 
 import { useResetPassword } from "../services/auth/useResetPassword";
 
 import AuthLayout from "../ui/layouts/AuthLayout";
-import Spinner from "../ui/components/Spinner";
 import Button from "../ui/components/Button";
 import Input from "../ui/components/Input";
 
@@ -36,12 +37,24 @@ function ResetPassword() {
   const { resetToken } = useParams();
   const navigate = useNavigate();
 
+  const schema = object({
+    password: string()
+      .min(8, "Minimum password length is 8")
+      .required("Password field is required"),
+    confirmPassword: string()
+      .min(8, "Minimum password length is 8")
+      .oneOf([ref("password")], "Passwords must match")
+      .required("Kindly confirm your password"),
+  });
+
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   function handleActiveInput(field) {
     setIsActive(field);
@@ -69,10 +82,6 @@ function ResetPassword() {
           placeholder="Enter password"
           register={{
             ...register("password", {
-              required: {
-                value: true,
-                message: "password field is required",
-              },
               onBlur: () => {
                 handleActiveInput("");
               },
@@ -93,16 +102,6 @@ function ResetPassword() {
           placeholder="Confirm Password"
           register={{
             ...register("confirmPassword", {
-              required: {
-                value: true,
-                message: "kindly confirm your password",
-              },
-              minLength: {
-                value: 8,
-                message: "minimum required length is 8",
-              },
-              validate: (value, formValues) =>
-                value === formValues.password || "password doesn't match",
               onBlur: () => {
                 handleActiveInput("");
               },
@@ -118,13 +117,9 @@ function ResetPassword() {
         />
 
         <ButtonWrapper>
-          {!isLoading ? (
-            <Button type="small" disabled={isLoading}>
-              reset
-            </Button>
-          ) : (
-            <Spinner />
-          )}
+          <Button type="small" disabled={isLoading}>
+            {!isLoading ? "resetting.." : "reset"}
+          </Button>
         </ButtonWrapper>
       </Form>
     </AuthLayout>

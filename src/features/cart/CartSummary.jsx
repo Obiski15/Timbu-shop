@@ -25,6 +25,12 @@ const Header = styled.p`
   border-bottom: 1px solid var(--border);
 `;
 
+const Discount = styled.span`
+  font-weight: normal;
+  text-decoration: line-through;
+  padding-right: 1rem;
+`;
+
 const Subtotal = styled.div`
   width: 100%;
   display: flex;
@@ -65,7 +71,12 @@ function CartSummary() {
           <Header>Cart Summary</Header>
           <Subtotal>
             <SubtotalHeader>Subtotal</SubtotalHeader>
-            <Price>{formatCurrency(cart?.data?.cart?.totalPrice)}</Price>
+            <Price>
+              <Discount>
+                {formatCurrency(cart?.data?.cart?.totalDiscount)}
+              </Discount>
+              {formatCurrency(cart?.data?.cart?.totalPrice)}
+            </Price>
           </Subtotal>
         </>
       )}

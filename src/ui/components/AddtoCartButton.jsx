@@ -7,6 +7,7 @@ import { useAddToCart } from "../../services/cart/useAddToCart";
 import { useCart } from "../../services/cart/useCart";
 
 import ItemQuantityControl from "./ItemQuantityControl";
+import Spinner from "./Spinner";
 import Button from "./Button";
 
 const Wrapper = styled.div`
@@ -26,6 +27,12 @@ const Wrapper = styled.div`
   & p {
     flex: 1;
   }
+`;
+
+const SpinnerWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 function AddtoCartButton({ id }) {
@@ -52,7 +59,13 @@ function AddtoCartButton({ id }) {
             }}
           >
             <MdAddShoppingCart />
-            <p>add to cart</p>
+            {isAddingToCart ? (
+              <SpinnerWrapper>
+                <Spinner />
+              </SpinnerWrapper>
+            ) : (
+              <p>add to cart</p>
+            )}
           </Button>
         </Wrapper>
       )}

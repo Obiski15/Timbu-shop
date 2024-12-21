@@ -149,7 +149,7 @@ const PopupInputs = styled.form`
   }
 `;
 
-const SortBy = memo(function SortBy() {
+const SearchFilter = memo(function SearchFilter() {
   const [displayPricePopup, setDisplayPricePopup] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [maxPrice, setMaxPrice] = useState(() => {
@@ -268,8 +268,8 @@ const SortBy = memo(function SortBy() {
             ...theme,
             colors: {
               ...theme.colors,
-              primary25: "var(--background-color)",
-              primary50: "var(--background-color)",
+              primary25: "var(--background)",
+              primary50: "var(--background)",
               primary: "var(--secondary-color)",
               neutral80: "var(--secondary-color)",
             },
@@ -286,8 +286,8 @@ const SortBy = memo(function SortBy() {
             ...theme,
             colors: {
               ...theme.colors,
-              primary25: "var(--background-color)",
-              primary50: "var(--background-color)",
+              primary25: "var(--background)",
+              primary50: "var(--background)",
               primary: "var(--secondary-color)",
               neutral80: "var(--secondary-color)",
             },
@@ -357,4 +357,4 @@ const SortBy = memo(function SortBy() {
   );
 });
 
-export default SortBy;
+export default SearchFilter;

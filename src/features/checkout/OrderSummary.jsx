@@ -97,7 +97,9 @@ function OrderSummary() {
 
               <Row>
                 <Des>Discount</Des>
-                <Discount>{formatCurrency(0)}</Discount>
+                <Discount>
+                  {formatCurrency(cart?.data?.cart?.totalDiscount)}
+                </Discount>
               </Row>
             </PricesOutline>
 

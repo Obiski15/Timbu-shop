@@ -5,7 +5,7 @@ import { FcFlashAuto } from "react-icons/fc";
 import styled from "styled-components";
 import toast from "react-hot-toast";
 
-import { updateRecentlyViewedItems } from "../services/offline/recentlyviewed";
+import { updateRecentlyViewedItems } from "../services/history/recentlyviewed";
 import { useReview } from "../services/review/useReview";
 import { useItem } from "../services/item/useItem";
 import { useCart } from "../services/cart/useCart";
@@ -177,7 +177,7 @@ const ItemPrice = styled.div`
   letter-spacing: 0.1rem;
 `;
 
-const DIscount = styled.span`
+const Discount = styled.span`
   text-decoration: line-through;
   font-style: italic;
   color: var(--border);
@@ -295,7 +295,7 @@ const Tab = styled.div`
 
   &.active-tab {
     background-color: var(--secondary-color);
-    color: var(--background-color);
+    color: var(--background);
   }
 `;
 
@@ -425,8 +425,9 @@ function Description() {
       updateRecentlyViewedItems({
         name: item?.name,
         id: item?._id,
-        price: item?._price,
+        price: item?.price,
         image: item?.photo,
+        discount: item?.discount,
       });
     }
   }, [isFetched, isSuccess, item]);
@@ -532,7 +533,7 @@ function Description() {
               <TopRightPrice>
                 <ItemPrice>
                   {formatCurrency(item?.price)}{" "}
-                  <DIscount>{formatCurrency(item?.discount)}</DIscount>
+                  <Discount>{formatCurrency(item?.discount)}</Discount>
                 </ItemPrice>
                 {item?.stock === 0 ? (
                   <Stock color="var(--destructive)">Out of stock</Stock>

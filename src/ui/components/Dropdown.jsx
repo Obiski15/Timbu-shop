@@ -50,7 +50,7 @@ const StyledButton = styled.button`
 
   &:hover {
     background-color: var(--secondary-color);
-    color: var(--background-color);
+    color: var(--background);
   }
 `;
 

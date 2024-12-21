@@ -9,6 +9,9 @@ import FullPageSpinner from "./ui/components/FullPageSpinner";
 
 import GlobalStyles from "./styles/GlobalStyles";
 
+import DeliveryProvider from "./providers/delivery/DeliveryProvider";
+import CheckoutPaymentStatus from "./pages/CheckoutPaymentStatus";
+
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 const RecentlyViewed = lazy(() => import("./pages/RecentlyViewed"));
 const Description = lazy(() => import("./pages/ItemDescription"));
@@ -98,7 +101,9 @@ function App() {
       path: "/checkout",
       element: (
         <Suspense fallback={<FullPageSpinner />}>
-          <Checkout />
+          <DeliveryProvider>
+            <Checkout />
+          </DeliveryProvider>
         </Suspense>
       ),
     },
@@ -167,6 +172,10 @@ function App() {
       ),
     },
     {
+      path: "/payment/status",
+      element: <CheckoutPaymentStatus />,
+    },
+    {
       path: "*",
       element: (
         <Suspense>
@@ -194,6 +203,9 @@ function App() {
         <Toaster
           position="top-center"
           reverseOrder={false}
+          containerStyle={{
+            zIndex: "9999999999999999999",
+          }}
           gutter={8}
           toastOptions={{
             success: {

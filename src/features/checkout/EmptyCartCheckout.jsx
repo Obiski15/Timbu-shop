@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import Button from "../../ui/components/Button";
 
-const StyledNoRecentView = styled.div`
+const EmptyCartWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
@@ -17,21 +17,21 @@ const Empty = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
-  padding: 4rem 0;
 `;
 
-const Image = styled.div`
+const EmptyCartImage = styled.div`
   width: 100px;
   height: 100px;
 
   & > img {
+    border-radius: 50%;
     width: 100%;
     height: 100%;
     object-fit: contain;
   }
 `;
 
-const Text = styled.p`
+const EmptyCartTextWrapper = styled.div`
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -47,28 +47,30 @@ const Text = styled.p`
 
     &:last-child {
       font-weight: 400;
+      font-size: 1.2rem;
       letter-spacing: 0.1rem;
     }
   }
 `;
 
-function NoRecentView() {
+function EmptyCartCheckout() {
   const navigate = useNavigate();
-  return (
-    <StyledNoRecentView>
-      <Empty>
-        <Image>
-          <img src="/images/binoculars.svg" alt="empty-order" />
-        </Image>
 
-        <Text>
-          <p>No Recently Viewed Products</p>
-          <p>You have no recently viewed products at the moment</p>
-        </Text>
-        <Button onClick={() => navigate("/")}>Continue Shopping</Button>
+  return (
+    <EmptyCartWrapper>
+      <Empty>
+        <EmptyCartImage>
+          <img src="/images/pay.png" alt="empty-cart" />
+        </EmptyCartImage>
+
+        <EmptyCartTextWrapper>
+          <p>Your cart cannot be Empty!</p>
+          <p>Add at least one item to your cart to checkout!</p>
+        </EmptyCartTextWrapper>
+        <Button onClick={() => navigate("/explore")}>Explore Items</Button>
       </Empty>
-    </StyledNoRecentView>
+    </EmptyCartWrapper>
   );
 }
 
-export default NoRecentView;
+export default EmptyCartCheckout;

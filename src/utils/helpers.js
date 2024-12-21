@@ -12,3 +12,21 @@ export function formatDate(date) {
     year: "numeric",
   });
 }
+
+export function formatShortDate(date) {
+  return new Date(date)
+    .toLocaleDateString("en-NG", {
+      day: "2-digit",
+      month: "long",
+    })
+    .split(" ")
+    .join(", ");
+}
+
+export function formatLongDate(date) {
+  return new Date(date).toLocaleDateString("en-NG", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+}

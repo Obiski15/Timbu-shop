@@ -15,7 +15,13 @@ export async function getRecentlyViewedItems() {
   return search;
 }
 
-export async function updateRecentlyViewedItems({ name, id, price, image }) {
+export async function updateRecentlyViewedItems({
+  name,
+  id,
+  price,
+  image,
+  discount,
+}) {
   const db = await initIDB(IDB_KEY);
 
   const tx = db.transaction(IDB_KEY, "readwrite");
@@ -32,6 +38,7 @@ export async function updateRecentlyViewedItems({ name, id, price, image }) {
     name,
     price,
     photo: image,
+    discount,
   });
 
   trimStore(store, 10);

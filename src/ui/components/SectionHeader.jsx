@@ -34,6 +34,7 @@ const Button = styled.button`
 
 function SectionHeader({ children }) {
   const navigate = useNavigate();
+
   return (
     <StyledSectionHeader>
       <p>{children}</p>

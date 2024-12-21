@@ -84,6 +84,10 @@ const Summary = styled.div`
   letter-spacing: 0.005rem;
 `;
 
+const Name = styled.p`
+  text-transform: capitalize;
+`;
+
 const Price = styled.p`
   font-size: 2rem;
   font-weight: 500;
@@ -120,7 +124,7 @@ const CartItem = memo(function CartItem({ item }) {
           alt={item?.product?.name}
         />
         <Details>
-          <p>{item?.product?.name}</p>
+          <Name>{item?.product?.name}</Name>
 
           {item?.product?.stock === 0 ? (
             <Stock color="var(--destructive)">Out of stock</Stock>

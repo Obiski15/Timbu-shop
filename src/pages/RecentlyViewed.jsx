@@ -2,9 +2,9 @@ import SectionHeader from "../ui/components/SectionHeader";
 import DummyItem from "../ui/layouts/dummy/DummyItem";
 import styled from "styled-components";
 
-import { useRecentlyViewedItems } from "../services/offline/useRecentlyViewedItems";
+import { useRecentlyViewedItems } from "../services/history/useRecentlyViewedItems";
 
-import NoRecentView from "../features/recentlyViewed/NoRecentView";
+import NoRecentView from "../features/history/recentlyViewed/NoRecentView";
 import ProfilePagesLayout from "../ui/layouts/ProfilePagesLayout";
 import ErrorMessage from "../ui/components/ErrorMessage";
 import Item from "../features/items/Item";

@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { SearchQueryContext } from "./SearchQueryProvider";
 
-function useSearchQuery() {
+export function useSearchQuery() {
   const context = useContext(SearchQueryContext);
 
   if (!context)
@@ -10,5 +10,3 @@ function useSearchQuery() {
 
   return context;
 }
-
-export default useSearchQuery;

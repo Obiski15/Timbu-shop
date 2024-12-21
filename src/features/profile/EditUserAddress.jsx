@@ -1,10 +1,13 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { forwardRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import { object, string } from "yup";
 import toast from "react-hot-toast";
 
 import { useUpdateAddress } from "../../services/user/useUpdateAddress";
 import { useUser } from "../../services/user/useUser";
+import { useModal } from "../../hooks/useModal";
 
 import Input from "../../ui/components/Input";
 
@@ -16,17 +19,39 @@ const StyledEditUserAddress = styled.form`
 `;
 
 const EditUserAddress = forwardRef((props, ref) => {
-  const { closeModal } = { ...props };
+  const { closeModal } = useModal();
 
   const { updateAddress, isUpdatingAddress } = useUpdateAddress();
-  const { user } = useUser();
   const [isActive, setIsActive] = useState("");
+  const { user } = useUser();
+
+  const schema = object({
+    userAddress: object({
+      country: string()
+        .lowercase()
+        .trim()
+        .required("kindly provide a country name"),
+      region: string()
+        .lowercase()
+        .trim()
+        .required("kindly provide a state/region name"),
+      city: string()
+        .lowercase()
+        .trim()
+        .required("kindly provide your city name"),
+      address: string()
+        .lowercase()
+        .trim()
+        .required("kindly provide your house address"),
+    }),
+  });
 
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm({
+    resolver: yupResolver(schema),
     defaultValues: {
       userAddress: { ...user?.data?.user?.userAddress },
     },
@@ -59,10 +84,6 @@ const EditUserAddress = forwardRef((props, ref) => {
         placeholder="e.g 25, Micheal Ayorinde Street"
         register={{
           ...register("userAddress.address", {
-            required: {
-              value: true,
-              message: "field is required",
-            },
             onBlur: () => {
               handleActiveInput("");
             },
@@ -82,10 +103,6 @@ const EditUserAddress = forwardRef((props, ref) => {
         placeholder="Input Country"
         register={{
           ...register("userAddress.country", {
-            required: {
-              value: true,
-              message: "field is required",
-            },
             onBlur: () => {
               handleActiveInput("");
             },
@@ -105,10 +122,6 @@ const EditUserAddress = forwardRef((props, ref) => {
         placeholder="Input Region"
         register={{
           ...register("userAddress.region", {
-            required: {
-              value: true,
-              message: "field is required",
-            },
             onBlur: () => {
               handleActiveInput("");
             },
@@ -128,10 +141,6 @@ const EditUserAddress = forwardRef((props, ref) => {
         placeholder="City"
         register={{
           ...register("userAddress.city", {
-            required: {
-              value: true,
-              message: "field is required",
-            },
             onBlur: () => {
               handleActiveInput("");
             },

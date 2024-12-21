@@ -68,6 +68,7 @@ const Details = styled.div`
 `;
 
 const Name = styled.p`
+  text-transform: capitalize;
   font-weight: 500;
 `;
 

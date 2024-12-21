@@ -11,7 +11,7 @@ import Progress from "../../ui/components/Progress";
 import Ratings from "../../ui/components/Ratings";
 import TabHeading from "./components/Tabheading";
 
-import Pagination from "../../ui/components/Pagination";
+// import Pagination from "../../ui/components/Pagination";
 import star from "../..//assets/icons/active-star.svg";
 import chat from "../../assets/icons/chat.svg";
 
@@ -277,11 +277,11 @@ const Review = forwardRef(
                       </Comments>
                     </>
                   )}
-                  <Pagination
+                  {/* <Pagination
                     hasNextPage={true}
                     fetchNextPage={() => console.log("next page fectched")}
                     isFetchingNextPage={false}
-                  />
+                    /> */}
                 </ReviewComments>
               </Reviews>
             )}

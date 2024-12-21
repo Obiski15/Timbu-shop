@@ -1,8 +1,9 @@
-import { useRef } from "react";
 import { GoPencil } from "react-icons/go";
 import styled from "styled-components";
+import { useRef } from "react";
 
 import { useUser } from "../../services/user/useUser";
+import { formatShortDate } from "../../utils/helpers";
 
 import DummyDeliveryDetails from "../../ui/layouts/dummy/DummyDeliveryDetails";
 import ErrorMessage from "../../ui/components/ErrorMessage";
@@ -158,7 +159,7 @@ function DeliveryDetails() {
                 </Modal.Open>
                 <Modal.Window
                   modalName="edit-address"
-                  handler={() => {
+                  cb={() => {
                     editDeliveryAddressRef.current.click();
                   }}
                 >
@@ -168,12 +169,7 @@ function DeliveryDetails() {
 
               <Content>
                 {!user?.data?.user?.shippingAddress ? (
-                  <Modal.Open
-                    modalName="edit-address"
-                    handler={() => {
-                      editDeliveryAddressRef.current.click();
-                    }}
-                  >
+                  <Modal.Open modalName="edit-address">
                     <AddDeliveryAddress>
                       <p>+add</p>
                     </AddDeliveryAddress>
@@ -197,7 +193,7 @@ function DeliveryDetails() {
                 </Modal.Open>
                 <Modal.Window
                   modalName="edit-delivery-mode"
-                  handler={() => {
+                  cb={() => {
                     editDeliveryModeRef.current.click();
                   }}
                 >
@@ -207,7 +203,12 @@ function DeliveryDetails() {
 
               <Content>
                 <Header>Door Delivery</Header>
-                <Des>Delivery Between 11, july and 12, july</Des>
+                <Des>
+                  Delivery Between {formatShortDate(new Date())} and{" "}
+                  {formatShortDate(
+                    new Date(new Date().getTime() + 24 * 3 * 60 * 60 * 1000)
+                  )}
+                </Des>
               </Content>
             </Wrapper>
           </MainWrapper>
