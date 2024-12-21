@@ -13,8 +13,6 @@ function Search() {
   const { searchQuery, setSearchQuery } = useSearchQuery();
   const [searchParams] = useSearchParams();
 
-  console.log(searchQuery);
-
   const {
     data,
     error,

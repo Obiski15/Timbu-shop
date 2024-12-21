@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa";
 import toast from "react-hot-toast";
 import PropTypes from "prop-types";
@@ -12,6 +13,8 @@ import AlertDialog from "./AlertDialog";
 import Icon from "./Icon";
 
 function WishlistControl({ id }) {
+  const navigate = useNavigate();
+
   const { isDeletingFromWishlist, deleteFromWishlist } =
     useDeleteFromWishlist();
 
@@ -57,7 +60,7 @@ function WishlistControl({ id }) {
       <AlertDialog.Window
         modalName="sign-in-alert"
         buttonText="Sign in"
-        cb={() => console.log("sign in clicked")}
+        cb={() => navigate("/login")}
       >
         <p>kindly sign in to add item to wishlist</p>
       </AlertDialog.Window>
