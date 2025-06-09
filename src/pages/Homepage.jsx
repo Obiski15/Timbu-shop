@@ -7,7 +7,7 @@ function Homepage() {
     <PageLayout>
       <Categories />
       <ItemsContainer heading="recommended" />
-      <ItemsContainer heading="top deals" limit={10} />
+      <ItemsContainer heading="top deals" limit={10} sortBy="id" />
     </PageLayout>
   );
 }

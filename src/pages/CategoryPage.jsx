@@ -11,11 +11,12 @@ import Spinner from "../ui/components/Spinner";
 
 function CategoryPage() {
   const { category: categoryId } = useParams();
+  const formattedCategoryId = categoryId.replace(/-/g, " ");
   const {
     category,
     isLoading: isLoadingCategory,
     error: categoryError,
-  } = useCategory(categoryId);
+  } = useCategory(formattedCategoryId);
 
   return (
     <PageLayout>
@@ -33,35 +34,43 @@ function CategoryPage() {
           borderRadius: "0.5rem",
         }}
       >
-        {categoryId}
+        {formattedCategoryId}
       </div>
 
-      <ItemsContainer categoryId={categoryId} heading="top deals" />
-      <div
-        style={{
-          backgroundColor: "red",
-          color: "white",
-          padding: "1.5rem",
-          textAlign: "center",
-          textTransform: "uppercase",
-          fontSize: "1.6rem",
-          fontWeight: 600,
-          margin: "2rem 2rem 0 2rem",
-          borderRadius: "0.5rem",
-        }}
-      >
-        Shop by category
-      </div>
+      {isLoadingCategory ? (
+        <Spinner />
+      ) : categoryError ? (
+        <ErrorMessage message={categoryError.message} />
+      ) : (
+        <ItemsContainer categoryId={formattedCategoryId} heading="top deals" />
+      )}
 
-      {isLoadingCategory && <Spinner />}
-      {categoryError && <ErrorMessage message={categoryError.message} />}
-      {category?.data?.category?.subCategory?.map((category, i) => (
-        <HorizontalItemsContainer
-          key={i + 1}
-          categoryId={category}
-          heading={category}
-        />
-      ))}
+      {category?.data?.category?.subCategory && (
+        <>
+          <div
+            style={{
+              backgroundColor: "red",
+              color: "white",
+              padding: "1.5rem",
+              textAlign: "center",
+              textTransform: "uppercase",
+              fontSize: "1.6rem",
+              fontWeight: 600,
+              margin: "2rem 2rem 0 2rem",
+              borderRadius: "0.5rem",
+            }}
+          >
+            Shop by category
+          </div>
+          {category?.data?.category?.subCategory?.map((subCategoryId, i) => (
+            <HorizontalItemsContainer
+              key={i + 1}
+              categoryId={subCategoryId}
+              heading={subCategoryId}
+            />
+          ))}
+        </>
+      )}
     </PageLayout>
   );
 }

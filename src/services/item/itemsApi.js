@@ -1,8 +1,8 @@
 const BASE_URL = `${import.meta.env.VITE_API_ROUTE}/items`;
 
-export async function getItems({ categoryId, page, limit }) {
+export async function getItems({ categoryId, page, limit, sortBy }) {
   const res = await fetch(
-    `${BASE_URL}/?sort=-_id&category_id=${!categoryId ? "" : categoryId}${
+    `${BASE_URL}/?sort=${sortBy}&category_id=${categoryId}${
       limit && page ? `&limit=${limit}&page=${page}` : ""
     }`
   );
